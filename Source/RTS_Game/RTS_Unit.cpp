@@ -3,7 +3,7 @@
 #include "RTS_Unit.h"
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Runtime/Engine/Classes/Components/SkeletalMeshComponent.h"
-
+#include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 
 // Sets default values
 ARTS_Unit::ARTS_Unit()
@@ -15,6 +15,7 @@ ARTS_Unit::ARTS_Unit()
 	m_SelectionIndicator->SetupAttachment(GetMesh());
 	m_SelectionIndicator->SetVisibility(true);
 		
+	// All stats defaulted to 0 or NONE
 	m_Stats = new FRTS_UnitStats;
 }
 
@@ -29,6 +30,12 @@ void ARTS_Unit::BeginPlay()
 	Super::BeginPlay();
 	m_SelectionIndicator->SetVisibility(false);
 
+}
+
+void ARTS_Unit::Move(FVector &a_Location)
+{
+	// Simple fill-in version for testing THIS SHOULD ALWAYS BE OVERRIDEN
+	UNavigationSystem::SimpleMoveToLocation(this->GetController(), a_Location);
 }
 
 // Called every frame

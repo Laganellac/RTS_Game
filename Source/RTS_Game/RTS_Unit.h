@@ -18,7 +18,7 @@ public:
 
 	~ARTS_Unit();
 
-	//virtual void Move();
+	virtual void MoveTo(FVector &a_Location);
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -54,14 +54,19 @@ public:
 
 protected:
 
+	void Move(FVector &a_Location);
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 	FRTS_UnitStats *m_Stats;
 
-private:
 	// Lets the player know this unit is selected
 	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* m_SelectionIndicator;
+
+private:
+	
+
+	
 
 };
