@@ -18,7 +18,7 @@ public:
 
 	~ARTS_Unit();
 
-	virtual void MoveTo(FVector &a_Location);
+	virtual void MoveTo(const FVector &a_Location);
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -53,16 +53,23 @@ public:
 	FORCEINLINE enum ETeamColor GetTeamColor() { return m_Stats->TeamColor; };
 
 protected:
-
-	void Move(FVector &a_Location);
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	virtual void Move();
+
+	UFUNCTION()
+	virtual void StopMoving();
+
+	// Unit properties
 	FRTS_UnitStats *m_Stats;
 
 	// Lets the player know this unit is selected
 	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* m_SelectionIndicator;
+
+	FVector m_MoveLocation;
 
 private:
 	

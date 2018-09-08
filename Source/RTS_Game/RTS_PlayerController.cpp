@@ -222,7 +222,7 @@ void ARTS_PlayerController::MovePressed()
 	for (int32 i = 0; i < m_SelectedUnits.Num(); i++)
 	{
 		FVector moveLocation = hit.Location + FVector(i / 2 * 100, i % 2 * 100, 0);
-		m_SelectedUnits[i]->Move(moveLocation);
+		m_SelectedUnits[i]->MoveTo(moveLocation);
 		DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 3.f);
 	}
 }

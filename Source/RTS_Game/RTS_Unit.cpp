@@ -32,10 +32,10 @@ void ARTS_Unit::BeginPlay()
 
 }
 
-void ARTS_Unit::Move(FVector &a_Location)
+void ARTS_Unit::MoveTo(const FVector &a_Location)
 {
-	// Simple fill-in version for testing THIS SHOULD ALWAYS BE OVERRIDEN
-	UNavigationSystem::SimpleMoveToLocation(this->GetController(), a_Location);
+	m_MoveLocation = a_Location;
+	Move();
 }
 
 // Called every frame
@@ -53,4 +53,15 @@ void ARTS_Unit::SetSelected()
 void ARTS_Unit::SetDeselected()
 {
 	m_SelectionIndicator->SetVisibility(false);
+}
+
+void ARTS_Unit::Move()
+{
+	// Simple fill-in version for testing THIS SHOULD ALWAYS BE OVERRIDEN
+	UNavigationSystem::SimpleMoveToLocation(this->GetController(), m_MoveLocation);
+}
+
+void ARTS_Unit::StopMoving()
+{
+	UNavigationSystem::SimpleMoveToLocation(this->GetController(), this->GetActorLocation());
 }
