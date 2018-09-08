@@ -30,6 +30,11 @@ public:
 
 protected:
 
+	void Attack(struct FHitResult &a_Hit);
+
+	UFUNCTION()
+	void AttackPressed();
+
 	// Deselects each unit in the array and then empties it
 	void DeselectUnits();
 
@@ -49,10 +54,15 @@ protected:
 	void SelectionPressed();
 
 private:
+
+
 	FRTS_PlayerStats *m_Stats;
 	
 	// Used to check if the player is attempting to group two units together
 	bool m_GroupingUnits;
+
+	// Used to check if the player is attempting to attack
+	bool m_Attacking;
 
 	FHitResult m_InitialSelectionClick;
 

@@ -3,6 +3,7 @@
 #include "RTS_PlayerController.h"
 #include "RTS_HUD.h"
 #include "RTS_Unit.h"
+#include "RTS_AttackingUnit.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -30,7 +31,7 @@ void ARTS_PlayerController::BeginPlay()
 	Super::BeginPlay();
 	m_CurrentHUD = Cast<ARTS_HUD>(GetHUD());
 
-	// Ensure the the game isn't sta
+	// Make sure this is empty at the start
 	m_SelectedUnits.Empty();
 }
 
@@ -44,6 +45,8 @@ void ARTS_PlayerController::SetupInputComponent()
 
 	InputComponent->BindAction("GroupUnits", IE_Pressed, this, &ARTS_PlayerController::GroupUnitsPressed);
 	InputComponent->BindAction("GroupUnits", IE_Released, this, &ARTS_PlayerController::GroupUnitsReleased);
+
+	InputComponent->BindAction("Attack", IE_Pressed, this, &ARTS_PlayerController::AttackPressed);
 }
 
 void ARTS_PlayerController::Tick(float a_DeltaTime)
@@ -74,6 +77,63 @@ void ARTS_PlayerController::Tick(float a_DeltaTime)
 		//
 		////DrawDebugBox(GetWorld(), selectionRectCenter, selectionRectExtents, FColor::Red, true, 2.f);
 	//}
+}
+
+//30 min 9.6.18
+void ARTS_PlayerController::Attack(FHitResult &a_Hit)
+{
+	// If the thing clicked is a unit use it as a target
+	ARTS_Unit *targetedUnit = Cast<ARTS_Unit>(a_Hit.GetActor());
+	if (targetedUnit)
+	{
+		for (int i = 0; i < m_SelectedUnits.Num(); i++)
+		{
+			ARTS_AttackingUnit *attacker = Cast<ARTS_AttackingUnit>(m_SelectedUnits[i]);
+			if (attacker)
+			{
+				attacker->AttackTargetUnit(targetedUnit);
+			}
+		}
+	}
+	// If the thing clicked isnt a unit then attack move to the location
+	else
+	{
+		FVector location = a_Hit.Location;
+		for (int i = 0; i < m_SelectedUnits.Num(); i++)
+		{
+			ARTS_AttackingUnit *attacker = Cast<ARTS_AttackingUnit>(m_SelectedUnits[i]);
+			if (attacker)
+			{
+				attacker->AttackMove(location);
+			}
+		}
+
+	}
+}
+
+//1hour 9.6.18
+void ARTS_PlayerController::AttackPressed()
+{
+	for (int i = 0; i < m_SelectedUnits.Num(); i++)
+	{
+		// Can only attack with attacking units; if there are any non attacking units remove them from the list
+		if (Cast<ARTS_AttackingUnit>(m_SelectedUnits[i]))
+		{
+			// If m_Attacking hasnt already been set to true then it must be set, m_GroupingUnits should also be reset
+			if (!m_Attacking)
+			{
+				m_GroupingUnits = false;
+				m_Attacking = true;
+			}
+		}
+		// Remove the item from the list but do not shrink it yet
+		else
+		{
+			m_SelectedUnits[i]->SetDeselected();
+			m_SelectedUnits.RemoveAt(i);
+			i--;
+		}
+	}
 }
 
 // 10 min 8.28.18
@@ -111,9 +171,17 @@ void ARTS_PlayerController::GroupUnitsReleased()
 // 1 hour 8.28.18
 void ARTS_PlayerController::SelectionPressed()
 {
-	// Places the hitresult in m_InitialSelectionClick
-	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, m_InitialSelectionClick);
-	DrawDebugSphere(GetWorld(), m_InitialSelectionClick.Location, 25, 10, FColor::Yellow, false, 20.f);
+	// Places the hitresult in hit
+	FHitResult hit;
+	GetHitResultUnderCursor(ECollisionChannel::ECC_GameTraceChannel1, false, hit);
+	DrawDebugSphere(GetWorld(), hit.Location, 25, 10, FColor::Yellow, false, 20.f);
+
+	if (m_Attacking)
+	{
+		Attack(hit);
+		m_Attacking = false;
+		return;
+	}
 
 	// Empty the array of selected units if the player is not trying to group units
 	if (!m_GroupingUnits)
@@ -122,7 +190,7 @@ void ARTS_PlayerController::SelectionPressed()
 	}
 	
 	// Attempts to Cast AActor* to ARTS_Unit*, if unsuccessful nullptr is returned. If clickedUnit isnt a Unit return
-	ARTS_Unit *clickedUnit = Cast<ARTS_Unit>(m_InitialSelectionClick.GetActor());
+	ARTS_Unit *clickedUnit = Cast<ARTS_Unit>(hit.GetActor());
 	if (clickedUnit == nullptr)
 	{
 		return;
@@ -153,8 +221,8 @@ void ARTS_PlayerController::MovePressed()
 	// Move all of the units to the new location
 	for (int32 i = 0; i < m_SelectedUnits.Num(); i++)
 	{
-		FVector MoveLocation = hit.Location + FVector(i / 2 * 100, i % 2 * 100, 0);
-		UNavigationSystem::SimpleMoveToLocation(m_SelectedUnits[i]->GetController(), MoveLocation);
-		DrawDebugSphere(GetWorld(), MoveLocation, 25, 10, FColor::Red, false, 3.f);
+		FVector moveLocation = hit.Location + FVector(i / 2 * 100, i % 2 * 100, 0);
+		m_SelectedUnits[i]->MoveTo(moveLocation);
+		DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 3.f);
 	}
 }
