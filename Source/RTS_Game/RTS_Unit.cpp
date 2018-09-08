@@ -14,14 +14,6 @@ ARTS_Unit::ARTS_Unit()
 	m_SelectionIndicator = CreateDefaultSubobject<UStaticMeshComponent>("SelectedIndicator");
 	m_SelectionIndicator->SetupAttachment(GetMesh());
 	m_SelectionIndicator->SetVisibility(true);
-		
-	// All stats defaulted to 0 or NONE
-	m_Stats = new FRTS_UnitStats;
-}
-
-ARTS_Unit::~ARTS_Unit()
-{
-	delete m_Stats;
 }
 
 // Called when the game starts or when spawned

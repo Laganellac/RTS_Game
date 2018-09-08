@@ -10,12 +10,14 @@
  * 
  */
 
-UENUM(BlueprintType)
+UENUM(BlueprintType, Meta = (Bitflags))
 enum class ETeamColor : uint8
 {
 	NONE,
 	RED,
-	BLUE
+	BLUE,
+	BLACK,
+	WHITE
 };
 
 // Holds all stats relevent to a unit. Defaults to 0.f 30 min 9.1.18
@@ -24,21 +26,39 @@ struct FRTS_UnitStats
 {
 	GENERATED_BODY();
 
-	enum ETeamColor TeamColor = ETeamColor::NONE;
+	UPROPERTY(EditDefaultsOnly)
+	ETeamColor TeamColor = ETeamColor::NONE;
 	
 	// Health variables
+	// Total health amount
+	UPROPERTY(EditDefaultsOnly)
 	float TotalHealth = 0.f;
+	// Current health amount
+	UPROPERTY(VisibleAnywhere)
 	float CurrentHealth = 0.f;
 
 	// Energy variables
+	// Total energy amount
+	UPROPERTY(EditDefaultsOnly)
 	float TotalEnergy = 0.f;
+	// Current energy amount
+	UPROPERTY(VisibleAnywhere)
 	float CurrentEnergy = 0.f;
 
 	// Combat variables
+	// How much damage this unit does when attack is called
+	UPROPERTY(EditDefaultsOnly)
 	float Damage = 0.f;
+	// Range in engine units (meters?)
+	UPROPERTY(EditDefaultsOnly)
 	float Range = 0.f;
+	// How long the lockout between attacks is for this unit (seconds)
+	UPROPERTY(EditDefaultsOnly)
+	float AttackSpeed = 0.f;
 
 	// Mobility variables
+	//Determines how fast this unit can move
+	UPROPERTY(EditDefaultsOnly)
 	float Speed = 0.f;
 };
 

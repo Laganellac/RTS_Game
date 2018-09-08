@@ -35,7 +35,7 @@ protected:
 	// Attack using the information stored in m_TargetUnits
 	virtual void Attack();
 	
-	//virtual void BeginPlay() override;
+	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
 	
@@ -62,6 +62,8 @@ protected:
 	
 	// List of units that this unit will target with an attack
 	TArray<ARTS_Unit *> m_TargetedUnits;
+
+	FTimerHandle m_AttackLockoutTimer;
 
 private:
 	// List of actors that overlap m_AttackTrigger

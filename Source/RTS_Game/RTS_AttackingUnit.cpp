@@ -3,6 +3,7 @@
 #include "RTS_AttackingUnit.h"
 #include "Runtime/Engine/Classes/Components/SphereComponent.h"
 #include "Runtime/Engine/Classes/Engine/Engine.h"
+#include "Runtime/Engine/Public/TimerManager.h"
 
 
 ARTS_AttackingUnit::ARTS_AttackingUnit()
@@ -10,7 +11,6 @@ ARTS_AttackingUnit::ARTS_AttackingUnit()
 	// Setup attack trigger around unit
 	m_AttackTrigger = CreateDefaultSubobject<USphereComponent>("AttackTrigger");
 	m_AttackTrigger->SetupAttachment(RootComponent);
-	m_AttackTrigger->SetSphereRadius(m_Stats->Range, true);
 	m_AttackTrigger->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	m_AttackTrigger->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel2);
 
@@ -47,11 +47,26 @@ void ARTS_AttackingUnit::MoveTo(const FVector &a_Location)
 
 void ARTS_AttackingUnit::Attack()
 {
+	// Can't attack faster than attack speed
+	if (GetWorldTimerManager().IsTimerActive(m_AttackLockoutTimer))
+	{
+		return;
+	}
+
 	// VIRTUAL FUNCTION - SHOULD NEVER EXECUTE HERE
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Attacking ") + m_TargetedUnits[0]->GetName()));
 	}
+
+	GetWorldTimerManager().SetTimer(m_AttackLockoutTimer, m_Stats.AttackSpeed, false);
+}
+
+void ARTS_AttackingUnit::BeginPlay()
+{
+	Super::BeginPlay();
+
+	m_AttackTrigger->SetSphereRadius(m_Stats.Range, true);
 }
 
 void ARTS_AttackingUnit::Tick(float DeltaTime)
@@ -96,13 +111,13 @@ void ARTS_AttackingUnit::TickAttackMove()
 	if (m_TargetedUnits.Num() == 0)
 	{
 		// Do nothing because this is called by Tick()
+		ARTS_Unit::MoveTo(m_MoveLocation);
 		return;
 	}
 	else
 	{
 		StopMoving();
 		Attack();
-		ARTS_Unit::MoveTo(m_MoveLocation);
 	}
 
 }
@@ -133,12 +148,11 @@ void ARTS_AttackingUnit::TickAttackTarget()
 	// Chase down the target if not currently in range
 	if (m_TargetedUnits.Num() == 0)
 	{
-		Super::MoveTo(m_TargetUnit->GetActorLocation());
+		ARTS_Unit::MoveTo(m_TargetUnit->GetActorLocation());
 	}
 	else
 	{
 		StopMoving();
 		Attack();
-		ARTS_Unit::MoveTo(m_MoveLocation);
 	}
 }

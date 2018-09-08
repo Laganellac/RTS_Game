@@ -16,8 +16,6 @@ public:
 	// Sets default values for this character's properties
 	ARTS_Unit();
 
-	~ARTS_Unit();
-
 	virtual void MoveTo(const FVector &a_Location);
 
 	// Called every frame
@@ -29,28 +27,31 @@ public:
 
 	// Accessor functions that are exposed to blueprints (20 min 9.1.18)
 	UFUNCTION(BlueprintPure, Category = "Combat")
-	FORCEINLINE float GetDamage() { return m_Stats->Damage; };
+	FORCEINLINE float GetAttackSpeed() { return m_Stats.AttackSpeed; };
 
 	UFUNCTION(BlueprintPure, Category = "Combat")
-	FORCEINLINE float GetRange() { return m_Stats->Range; };
+	FORCEINLINE float GetDamage() { return m_Stats.Damage; };
+
+	UFUNCTION(BlueprintPure, Category = "Combat")
+	FORCEINLINE float GetRange() { return m_Stats.Range; };
 
 	UFUNCTION(BlueprintPure, Category = "Energy")
-	FORCEINLINE float GetCurrentEnergy() { return m_Stats->CurrentEnergy; };
+	FORCEINLINE float GetCurrentEnergy() { return m_Stats.CurrentEnergy; };
 
 	UFUNCTION(BlueprintPure, Category = "Energy")
-	FORCEINLINE float GetTotalEnergy() { return m_Stats->TotalEnergy; };
+	FORCEINLINE float GetTotalEnergy() { return m_Stats.TotalEnergy; };
 
 	UFUNCTION(BlueprintPure, Category = "Health")
-	FORCEINLINE float GetCurrentHealth() { return m_Stats->CurrentHealth; };
+	FORCEINLINE float GetCurrentHealth() { return m_Stats.CurrentHealth; };
 
 	UFUNCTION(BlueprintPure, Category = "Health")
-	FORCEINLINE float GetTotalHealth() { return m_Stats->TotalHealth; };
+	FORCEINLINE float GetTotalHealth() { return m_Stats.TotalHealth; };
 
 	UFUNCTION(BlueprintPure, Category = "Mobility")
-	FORCEINLINE float GetSpeed() { return m_Stats->Speed; };
+	FORCEINLINE float GetSpeed() { return m_Stats.Speed; };
 
 	UFUNCTION(BlueprintPure, Category = "TeamColor")
-	FORCEINLINE enum ETeamColor GetTeamColor() { return m_Stats->TeamColor; };
+	FORCEINLINE enum ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
 
 protected:
 	// Called when the game starts or when spawned
@@ -63,10 +64,11 @@ protected:
 	virtual void StopMoving();
 
 	// Unit properties
-	FRTS_UnitStats *m_Stats;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRTS_UnitStats m_Stats;
 
 	// Lets the player know this unit is selected
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	class UStaticMeshComponent* m_SelectionIndicator;
 
 	FVector m_MoveLocation;
