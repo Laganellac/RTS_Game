@@ -21,13 +21,24 @@ void ARTS_Unit::BeginPlay()
 {
 	Super::BeginPlay();
 	m_SelectionIndicator->SetVisibility(false);
-
+	m_Stats.CurrentHealth = m_Stats.TotalHealth;
+	m_Stats.CurrentEnergy = m_Stats.TotalEnergy;
 }
 
 void ARTS_Unit::MoveTo(const FVector &a_Location)
 {
 	m_MoveLocation = a_Location;
 	Move();
+}
+
+void ARTS_Unit::RecieveDamage(ARTS_Unit *a_Source, const float &a_Damage)
+{
+	m_Stats.CurrentHealth -= a_Damage;
+
+	if (IsDead())
+	{
+		//Die();
+	}
 }
 
 // Called every frame

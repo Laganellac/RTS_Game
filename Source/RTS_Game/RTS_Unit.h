@@ -16,7 +16,11 @@ public:
 	// Sets default values for this character's properties
 	ARTS_Unit();
 
+	FORCEINLINE bool IsDead() { return (m_Stats.CurrentHealth <= 0.f); };
+
 	virtual void MoveTo(const FVector &a_Location);
+
+	void RecieveDamage(class ARTS_Unit *a_Source, const float &a_Damage);
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

@@ -53,10 +53,12 @@ void ARTS_AttackingUnit::Attack()
 		return;
 	}
 
+	m_TargetedUnits[0]->RecieveDamage(this, m_Stats.Damage);
+
 	// VIRTUAL FUNCTION - SHOULD NEVER EXECUTE HERE
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Attacking ") + m_TargetedUnits[0]->GetName()));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Attacked ") + m_TargetedUnits[0]->GetName() + TEXT(", current health = ") + FString::SanitizeFloat(m_TargetedUnits[0]->GetCurrentHealth(), 1)));
 	}
 
 	GetWorldTimerManager().SetTimer(m_AttackLockoutTimer, m_Stats.AttackSpeed, false);
@@ -128,7 +130,7 @@ void ARTS_AttackingUnit::TickAttackTarget()
 	m_OverlappingActors.Empty();
 	m_TargetedUnits.Empty();
 
-	m_AttackTrigger->GetOverlappingActors(m_OverlappingActors, TSubclassOf<ARTS_Unit>());
+	m_AttackTrigger->GetOverlappingActors(m_OverlappingActors);
 
 	ARTS_Unit *tempUnit = nullptr;
 
