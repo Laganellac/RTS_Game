@@ -56,9 +56,9 @@ protected:
 	bool m_IsAttackingTarget;
 
 	// The unit that is currently being targeted
-	class ARTS_Unit *m_TargetUnit;
+	ARTS_Unit *m_TargetUnit;
 
-	enum ETeamColor m_TargetTeamColor;
+	ETeamColor m_TargetTeamColor;
 	
 	// List of units that this unit will target with an attack
 	TArray<ARTS_Unit *> m_TargetedUnits;

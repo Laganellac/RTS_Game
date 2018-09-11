@@ -16,9 +16,11 @@ class RTS_GAME_API ARTS_HUD : public AHUD
 	GENERATED_BODY()
 		
 public:
+	virtual void BeginPlay() override;
+
 	virtual void DrawHUD() override;
 
-
+	TSharedPtr<class SRTS_UserInterface> m_UIWidget;
 private:
 
 };
