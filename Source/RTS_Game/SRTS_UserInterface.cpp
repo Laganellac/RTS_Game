@@ -5,17 +5,20 @@
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
+#include "RTS_HUD.h"
 #include "Runtime/Slate/Public/Widgets/Images/SImage.h"
 #include "Runtime/SlateCore/Public/Widgets/SBoxPanel.h"
 #include "Runtime/Slate/Public/Widgets/Text/STextBlock.h"
+#include "Runtime/Slate/Public/Widgets/Input/SButton.h"
+#include "Runtime/SlateCore/Public/Styling/CoreStyle.h"
 
 
 #define LOCTEXT_NAMESPACE "SRTS_UserInterface"
 
 void SRTS_UserInterface::Construct(const FArguments& InArgs)
 {
-	m_OwnerHUD = InArgs._OwnerHUDArg;
-
+	// Example
+	
 	ChildSlot
 	.VAlign(VAlign_Fill)
 	.HAlign(HAlign_Fill)
@@ -84,7 +87,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 		]
 	];
 
-
+	
 	/*
 	ChildSlot
 	[

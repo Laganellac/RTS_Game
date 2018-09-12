@@ -20,7 +20,15 @@ public:
 
 	virtual void DrawHUD() override;
 
-	TSharedPtr<class SRTS_UserInterface> m_UIWidget;
+	void StartGameAttacking();
+
+	void StartGameDefending();
+
+	void StartGameHelp();
+
+	void ExitGame();
+
+	TSharedPtr<class SCompoundWidget> m_CurrentWidget;
 private:
 
 };
