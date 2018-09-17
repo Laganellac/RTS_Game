@@ -14,11 +14,13 @@ ARTS_AttackingUnit::ARTS_AttackingUnit()
 	m_AttackTrigger->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	m_AttackTrigger->SetCollisionObjectType(ECollisionChannel::ECC_GameTraceChannel2);
 
-	m_TargetTeamColor = ETeamColor::NONE;
 	m_IsAttackMoving = false;
 	m_IsAttackingTarget = false;
 
-	m_Stats.UnitType = "Attacking Unit";
+	/*
+	m_TargetTeamColor = ETeamColor::NONE;
+	m_Stats.UnitName = EUnitName::NONE;
+	*/
 }
 
 void ARTS_AttackingUnit::AttackMove(const FVector &a_Location)

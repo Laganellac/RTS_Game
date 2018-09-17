@@ -10,6 +10,18 @@
  * 
  */
 
+
+UENUM(BlueprintType, Meta = (Bitflags))
+enum class EUnitName : uint8
+{
+	NONE,
+	ARCHER,
+	BLUE,
+	BLACK,
+	WHITE
+};
+
+
 UENUM(BlueprintType, Meta = (Bitflags))
 enum class ETeamColor : uint8
 {
@@ -27,7 +39,10 @@ struct FRTS_UnitStats
 	GENERATED_BODY();
 
 	UPROPERTY(VisibleAnywhere)
-	FString	UnitType = "ERROR_NO_UNIT_TYPE";
+	TSubclassOf<class ARTS_Unit> UnitClass;
+
+	UPROPERTY(VisibleAnywhere)
+	EUnitName UnitName = EUnitName::NONE;
 
 	UPROPERTY(EditDefaultsOnly)
 	ETeamColor TeamColor = ETeamColor::NONE;
@@ -77,9 +92,9 @@ struct FRTS_PlayerStats
 	enum ETeamColor TeamColor = ETeamColor::NONE;
 
 	// Gold Variables
-	int CurrentGold = 0;
-	int TotalGoldEarned = 0;
-	int TotalGoldSpent = 0;
+	int32 CurrentGold = 0;
+	int32 TotalGoldEarned = 0;
+	int32 TotalGoldSpent = 0;
 };
 
 UCLASS()
@@ -87,4 +102,6 @@ class RTS_GAME_API URTS_Lib : public UObject
 {
 	GENERATED_BODY()
 
+public:
+	static FRTS_UnitStats GetUnitStats(EUnitName a_UnitType, ETeamColor a_TeamColor = ETeamColor::NONE);
 };

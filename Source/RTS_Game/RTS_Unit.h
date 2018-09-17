@@ -25,6 +25,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	FORCEINLINE void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
+
 	void SetSelected();
 
 	void SetDeselected();

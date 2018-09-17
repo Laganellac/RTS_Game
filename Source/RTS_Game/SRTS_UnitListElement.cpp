@@ -22,6 +22,7 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 {
 	m_UnitStats = InArgs._UnitStatsArg;
+	m_CurrentController = InArgs._CurrentControllerArg;
 
 	//FSlateDynamicImageBrush 
 	//FPaths::EngineContentDir() / TEXT("UI/Icons/archerIcon.png")
@@ -68,6 +69,7 @@ void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 			SNew(SButton)
 			.HAlign(HAlign_Center)
 			.VAlign(VAlign_Center)
+			.OnClicked(this, &SRTS_UnitListElement::OnClicked)
 			.DesiredSizeScale(FVector2D(3.f, 3.f))
 			[
 				SNew(STextBlock)
@@ -77,6 +79,21 @@ void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 			]
 		]
 	];
+}
+
+FReply SRTS_UnitListElement::OnClicked() const
+{
+	if (m_CurrentController->GetCurrentGold() < m_UnitStats.Cost)
+	{
+		return FReply::Handled();
+	}
+	else
+	{
+		m_CurrentController->AddUnit(m_UnitStats.UnitName);
+		return FReply::Handled();
+	}
+
+	
 }
 
 FText SRTS_UnitListElement::GetCostText() const

@@ -14,6 +14,8 @@ ARTS_PlayerController::ARTS_PlayerController()
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Hand;
 
+
+	m_Stats.CurrentGold = 1000;
 	// Member variables of this class
 	m_GroupingUnits = false;
 }
@@ -69,6 +71,15 @@ void ARTS_PlayerController::Tick(float a_DeltaTime)
 		//
 		////DrawDebugBox(GetWorld(), selectionRectCenter, selectionRectExtents, FColor::Red, true, 2.f);
 	//}
+}
+
+void ARTS_PlayerController::AddUnit(EUnitName a_UnitName)
+{
+	FRTS_UnitStats tempUnitStats = URTS_Lib::GetUnitStats(a_UnitName);
+
+	m_PurchasedUnits.Add(tempUnitStats.UnitClass);
+
+	m_Stats.CurrentGold -= tempUnitStats.Cost;
 }
 
 //30 min 9.6.18

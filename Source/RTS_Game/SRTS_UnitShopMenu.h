@@ -15,14 +15,20 @@ public:
 	{}
 	SLATE_ARGUMENT(TWeakObjectPtr<class ARTS_HUD>, OwnerHUDArg);
 	SLATE_ARGUMENT(TWeakObjectPtr<class ARTS_PlayerController>, CurrentControllerArg)
+	SLATE_ATTRIBUTE(int, GoldAmount)
 	SLATE_END_ARGS()
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 
 private:
+	int32 GetGoldAmount() const;
+
+	FText GetGoldText() const;
+
 	FText GetTeamText() const;
 
+	TAttribute<int32> m_GoldAmount;
 	TWeakObjectPtr<class ARTS_HUD> m_OwnerHUD;
 	TWeakObjectPtr<class ARTS_PlayerController> m_CurrentController;
 };

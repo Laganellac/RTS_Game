@@ -23,6 +23,7 @@ void SRTS_UnitShopMenu::Construct(const FArguments& InArgs)
 	
 	m_OwnerHUD = InArgs._OwnerHUDArg;
 	m_CurrentController = InArgs._CurrentControllerArg;
+	m_GoldAmount = TAttribute<int32>(this, &SRTS_UnitShopMenu::GetGoldAmount);
 
 	ChildSlot
 	[
@@ -75,30 +76,30 @@ void SRTS_UnitShopMenu::Construct(const FArguments& InArgs)
 			.VAlign(VAlign_Center)
 			.AutoWidth()
 			[
-				SNew(SVerticalBox)
-
-				+ SVerticalBox::Slot()
-				.HAlign(HAlign_Center)
-				.VAlign(VAlign_Center)
+				SNew(SBorder)
 				[
-					SNew(SBorder)
-					.BorderImage(new FSlateColorBrush(FLinearColor::Blue))
-					.DesiredSizeScale(FVector2D(10.f, 10.f))
-				]
-
-				+ SVerticalBox::Slot()
-				.HAlign(HAlign_Center)
-				.VAlign(VAlign_Center)
-				[
-					SNew(SBorder)
-					.BorderImage(new FSlateColorBrush(FLinearColor::Red))
-					.DesiredSizeScale(FVector2D(10.f, 10.f))
+					SNew(STextBlock)
+					.ShadowColorAndOpacity(FLinearColor::Black)
+					.ColorAndOpacity(FLinearColor::Red)
+					.ShadowOffset(FIntPoint(-1, 1))
+					.Font(FSlateFontInfo("Veranda", 32))
+					//localized text to be translated with a generic name HelloSlateText
+					.Text(this, &SRTS_UnitShopMenu::GetGoldText)
 				]
 			]
 		]
 	];
 }
 
+int32 SRTS_UnitShopMenu::GetGoldAmount() const
+{
+	return m_CurrentController->GetCurrentGold();
+}
+
+FText SRTS_UnitShopMenu::GetGoldText() const
+{
+	return FText::FromString(FString::Printf(TEXT("Current gold: %d"), m_GoldAmount.Get()));
+}
 
 FText SRTS_UnitShopMenu::GetTeamText() const
 {
