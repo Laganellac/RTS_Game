@@ -31,5 +31,7 @@ public:
 	TSharedPtr<class SCompoundWidget> m_CurrentWidget;
 private:
 
+	class ARTS_PlayerController *m_CurrentController;
+
 };
 

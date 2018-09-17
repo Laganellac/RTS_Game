@@ -16,14 +16,6 @@ ARTS_PlayerController::ARTS_PlayerController()
 
 	// Member variables of this class
 	m_GroupingUnits = false;
-
-	m_Stats = new FRTS_PlayerStats;
-}
-
-// 5 min 9.1.18
-ARTS_PlayerController::~ARTS_PlayerController()
-{
-	delete m_Stats;
 }
 
 void ARTS_PlayerController::BeginPlay()
@@ -149,7 +141,7 @@ void ARTS_PlayerController::DeselectUnits()
 // 5 min 8.30.18
 bool ARTS_PlayerController::IsOnPlayerTeam(ARTS_Unit * a_Unit)
 {
-	if (m_Stats->TeamColor == a_Unit->GetTeamColor())
+	if (m_Stats.TeamColor == a_Unit->GetTeamColor())
 	{
 		return true;
 	}

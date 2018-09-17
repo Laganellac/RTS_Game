@@ -179,9 +179,11 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 	];
 	*/
 }
+
 FReply SRTS_StartGameMenu::AttackButtonPressed()
 {
 	m_OwnerHUD->StartGameAttacking();
 	return FReply::Handled();
 }
+
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

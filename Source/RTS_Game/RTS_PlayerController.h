@@ -18,13 +18,17 @@ class RTS_GAME_API ARTS_PlayerController : public APlayerController
 public:
 	ARTS_PlayerController();
 
-	~ARTS_PlayerController();
-
 	virtual void BeginPlay() override;
 
 	virtual void SetupInputComponent() override;
 
 	virtual void Tick(float a_DeltaTime) override;
+
+	FORCEINLINE int GetCurrentGold() { return m_Stats.CurrentGold; };
+
+	FORCEINLINE ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
+
+	FORCEINLINE void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
 
 	class ARTS_HUD* m_CurrentHUD;
 
@@ -55,8 +59,7 @@ protected:
 
 private:
 
-
-	FRTS_PlayerStats *m_Stats;
+	FRTS_PlayerStats m_Stats;
 	
 	// Used to check if the player is attempting to group two units together
 	bool m_GroupingUnits;

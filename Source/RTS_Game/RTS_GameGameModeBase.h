@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "RTS_Lib.h"
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "RTS_GameGameModeBase.generated.h"
@@ -14,4 +15,7 @@ class RTS_GAME_API ARTS_GameGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 
+public:
+
+	static TArray<FRTS_UnitStats> GetTeamAvailableUnitList(ETeamColor a_TeamColor);
 };

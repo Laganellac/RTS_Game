@@ -37,6 +37,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 			//localized text to be translated with a generic name HelloSlateText
 			.Text(LOCTEXT("HelloSlateText", "Hello, slate! ... Seeing what happens when I make this string really really really long"))
 		]
+
 		+ SVerticalBox::Slot()
 		.VAlign(VAlign_Top)
 		.HAlign(HAlign_Center)
@@ -50,6 +51,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 			//localized text to be translated with a generic name HelloSlateText
 			.Text(LOCTEXT("HelloSlateText2", "Hello, slate2!"))
 		]
+
 		+ SVerticalBox::Slot()
 		.VAlign(VAlign_Top)
 		.HAlign(HAlign_Center)
@@ -63,6 +65,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 			//localized text to be translated with a generic name HelloSlateText
 			.Text(LOCTEXT("HelloSlateText3", "Hello, slate3!"))
 		]
+
 		+ SVerticalBox::Slot()
 		.VAlign(VAlign_Top)
 		.HAlign(HAlign_Center)

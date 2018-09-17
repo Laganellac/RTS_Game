@@ -26,8 +26,14 @@ struct FRTS_UnitStats
 {
 	GENERATED_BODY();
 
+	UPROPERTY(VisibleAnywhere)
+	FString	UnitType = "ERROR_NO_UNIT_TYPE";
+
 	UPROPERTY(EditDefaultsOnly)
 	ETeamColor TeamColor = ETeamColor::NONE;
+
+	UPROPERTY(EditDefaultsOnly)
+	int Cost = 0;
 	
 	// Health variables
 	// Total health amount
@@ -80,5 +86,5 @@ UCLASS()
 class RTS_GAME_API URTS_Lib : public UObject
 {
 	GENERATED_BODY()
-	
+
 };

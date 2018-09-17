@@ -29,6 +29,8 @@ public:
 
 	void SetDeselected();
 
+	FORCEINLINE const FRTS_UnitStats GetUnitStats() const { return m_Stats; };
+
 	// Accessor functions that are exposed to blueprints (20 min 9.1.18)
 	UFUNCTION(BlueprintPure, Category = "Combat")
 	FORCEINLINE float GetAttackSpeed() { return m_Stats.AttackSpeed; };

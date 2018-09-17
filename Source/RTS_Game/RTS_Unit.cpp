@@ -14,6 +14,8 @@ ARTS_Unit::ARTS_Unit()
 	m_SelectionIndicator = CreateDefaultSubobject<UStaticMeshComponent>("SelectedIndicator");
 	m_SelectionIndicator->SetupAttachment(GetMesh());
 	m_SelectionIndicator->SetVisibility(true);
+
+	m_Stats.UnitType = "Unit";
 }
 
 // Called when the game starts or when spawned

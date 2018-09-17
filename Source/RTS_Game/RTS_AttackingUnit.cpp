@@ -17,6 +17,8 @@ ARTS_AttackingUnit::ARTS_AttackingUnit()
 	m_TargetTeamColor = ETeamColor::NONE;
 	m_IsAttackMoving = false;
 	m_IsAttackingTarget = false;
+
+	m_Stats.UnitType = "Attacking Unit";
 }
 
 void ARTS_AttackingUnit::AttackMove(const FVector &a_Location)
