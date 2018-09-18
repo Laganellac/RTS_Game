@@ -59,7 +59,7 @@ void ARTS_AttackingUnit::Attack()
 
 	m_TargetedUnits[0]->RecieveDamage(this, m_Stats.Damage);
 
-	// VIRTUAL FUNCTION - SHOULD NEVER EXECUTE HERE
+	// For debugging purposes
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Attacked ") + m_TargetedUnits[0]->GetName() + TEXT(", current health = ") + FString::SanitizeFloat(m_TargetedUnits[0]->GetCurrentHealth(), 1)));

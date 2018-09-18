@@ -56,7 +56,7 @@ void SRTS_UnitList::Construct(const FArguments& InArgs)
 				SNew(SBorder)
 				[
 					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
+					.UnitStatsArg(unitStats[1])
 					.CurrentControllerArg(m_CurrentController)
 				]
 			]
@@ -68,7 +68,7 @@ void SRTS_UnitList::Construct(const FArguments& InArgs)
 				SNew(SBorder)
 				[
 					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
+					.UnitStatsArg(unitStats[2])
 					.CurrentControllerArg(m_CurrentController)
 				]
 			]
@@ -80,7 +80,7 @@ void SRTS_UnitList::Construct(const FArguments& InArgs)
 				SNew(SBorder)
 				[
 					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
+					.UnitStatsArg(unitStats[3])
 					.CurrentControllerArg(m_CurrentController)
 				]
 			]

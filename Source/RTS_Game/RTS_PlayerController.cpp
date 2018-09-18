@@ -4,6 +4,7 @@
 #include "RTS_HUD.h"
 #include "RTS_Unit.h"
 #include "RTS_AttackingUnit.h"
+#include "RTS_BlueprintRefs.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -18,6 +19,9 @@ ARTS_PlayerController::ARTS_PlayerController()
 	m_Stats.CurrentGold = 1000;
 	// Member variables of this class
 	m_GroupingUnits = false;
+
+	m_BlueprintRefs = NewObject<URTS_BlueprintRefs>();
+	//NewObject<URTS_BlueprintRefs>(m_BlueprintRefs, URTS_BlueprintRefs::StaticClass());
 }
 
 void ARTS_PlayerController::BeginPlay()
@@ -91,7 +95,7 @@ void ARTS_PlayerController::StartRound()
 
 	for (int i = 0; i < m_PurchasedUnits.Num(); i++)
 	{
-		blueprintClass = URTS_Lib::GetUnitBlueprintClass(m_PurchasedUnits[i]);
+		blueprintClass = m_BlueprintRefs->GetBlueprintClass(m_PurchasedUnits[i]);
 		spawnLocation = cameraPawnLocation + FVector(i / 2 * 100, i % 2 * 100, 0);
 		unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass , &spawnLocation));
 
@@ -242,7 +246,7 @@ void ARTS_PlayerController::SelectionPressed()
 void ARTS_PlayerController::MovePressed()
 {
 	// Places the hitresult in hit
-	FHitResult hit;
+	FHitResult hit; 
 	GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, hit);
 
 	// Move all of the units to the new location

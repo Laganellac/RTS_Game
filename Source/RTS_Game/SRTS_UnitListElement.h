@@ -15,7 +15,7 @@ class RTS_GAME_API SRTS_UnitListElement : public SCompoundWidget
 public:
 	SLATE_BEGIN_ARGS(SRTS_UnitListElement)
 	{}
-	SLATE_ARGUMENT(FRTS_UnitStats, UnitStatsArg)
+	SLATE_ARGUMENT(FRTS_UnitStats , UnitStatsArg)
 	SLATE_ARGUMENT(TWeakObjectPtr<class ARTS_PlayerController>, CurrentControllerArg)
 	SLATE_END_ARGS()
 

@@ -16,9 +16,9 @@ enum class EUnitName : uint8
 {
 	NONE,
 	ARCHER,
-	BLUE,
-	BLACK,
-	WHITE
+	SWORDSMAN,
+	HEALER,
+	GENERAL,
 };
 
 
@@ -44,15 +44,15 @@ struct FRTS_UnitStats
 	UPROPERTY(VisibleAnywhere)
 	EUnitName UnitName = EUnitName::NONE;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	ETeamColor TeamColor = ETeamColor::NONE;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	int Cost = 0;
 	
 	// Health variables
 	// Total health amount
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	float TotalHealth = 0.f;
 	// Current health amount
 	UPROPERTY(VisibleAnywhere)
@@ -60,7 +60,7 @@ struct FRTS_UnitStats
 
 	// Energy variables
 	// Total energy amount
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	float TotalEnergy = 0.f;
 	// Current energy amount
 	UPROPERTY(VisibleAnywhere)
@@ -68,18 +68,18 @@ struct FRTS_UnitStats
 
 	// Combat variables
 	// How much damage this unit does when attack is called
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	float Damage = 0.f;
 	// Range in engine units (meters?)
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	float Range = 0.f;
 	// How long the lockout between attacks is for this unit (seconds)
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	float AttackSpeed = 0.f;
 
 	// Mobility variables
 	//Determines how fast this unit can move
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(VisibleAnywhere)
 	float Speed = 0.f;
 };
 
@@ -89,10 +89,13 @@ struct FRTS_PlayerStats
 {
 	GENERATED_BODY();
 
-	enum ETeamColor TeamColor = ETeamColor::NONE;
+	UPROPERTY(VisibleAnywhere)
+	ETeamColor TeamColor = ETeamColor::NONE;
 
 	// Gold Variables
+	UPROPERTY(VisibleAnywhere)
 	int32 CurrentGold = 0;
+
 	int32 TotalGoldEarned = 0;
 	int32 TotalGoldSpent = 0;
 };
@@ -104,6 +107,4 @@ class RTS_GAME_API URTS_Lib : public UObject
 
 public:
 	static FRTS_UnitStats GetUnitStats(EUnitName a_UnitType, ETeamColor a_TeamColor = ETeamColor::NONE);
-
-	static UClass *GetUnitBlueprintClass(EUnitName a_UnitName);
 };

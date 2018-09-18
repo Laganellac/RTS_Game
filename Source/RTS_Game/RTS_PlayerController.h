@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "RTS_PlayerController.generated.h"
 
+
 /**
  * 
  */
@@ -62,7 +63,7 @@ protected:
 	void SelectionPressed();
 
 private:
-
+	UPROPERTY(VisibleAnywhere)
 	FRTS_PlayerStats m_Stats;
 	
 	// Used to check if the player is attempting to group two units together
@@ -75,6 +76,8 @@ private:
 
 	// Stores the group of currently selected units
 	TArray<class ARTS_Unit *> m_SelectedUnits;
+
+	class URTS_BlueprintRefs *m_BlueprintRefs;
 
 	TArray<EUnitName> m_PurchasedUnits;
 };
