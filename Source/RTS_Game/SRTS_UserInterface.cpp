@@ -37,57 +37,6 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 			//localized text to be translated with a generic name HelloSlateText
 			.Text(LOCTEXT("HelloSlateText", "Hello, slate! ... Seeing what happens when I make this string really really really long"))
 		]
-
-		+ SVerticalBox::Slot()
-		.VAlign(VAlign_Top)
-		.HAlign(HAlign_Center)
-		[
-			// Inside lies a text block with these settings 
-			SNew(STextBlock)
-			.ShadowColorAndOpacity(FLinearColor::Black)
-			.ColorAndOpacity(FLinearColor::Red)
-			.ShadowOffset(FIntPoint(-1, 1))
-			.Font(FSlateFontInfo("Veranda", 16))
-			//localized text to be translated with a generic name HelloSlateText
-			.Text(LOCTEXT("HelloSlateText2", "Hello, slate2!"))
-		]
-
-		+ SVerticalBox::Slot()
-		.VAlign(VAlign_Top)
-		.HAlign(HAlign_Center)
-		[
-			// Inside lies a text block with these settings 
-			SNew(STextBlock)
-			.ShadowColorAndOpacity(FLinearColor::Black)
-			.ColorAndOpacity(FLinearColor::Red)
-			.ShadowOffset(FIntPoint(-1, 1))
-			.Font(FSlateFontInfo("Veranda", 16))
-			//localized text to be translated with a generic name HelloSlateText
-			.Text(LOCTEXT("HelloSlateText3", "Hello, slate3!"))
-		]
-
-		+ SVerticalBox::Slot()
-		.VAlign(VAlign_Top)
-		.HAlign(HAlign_Center)
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Center)
-			[
-				SNew(STextBlock)
-				.ColorAndOpacity(FLinearColor::Blue)
-				.ShadowColorAndOpacity(FLinearColor::Black)
-				.ShadowOffset(FIntPoint(-1, 1))
-				.Font(FSlateFontInfo("Veranda", 16))
-				.Text(LOCTEXT("HelloSlateText4", "Hello, slate4!"))
-			]
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Fill)
-			[
-				SNew(SImage)
-				.ColorAndOpacity(FLinearColor::Blue)
-			]
-		]
 	];
 
 	

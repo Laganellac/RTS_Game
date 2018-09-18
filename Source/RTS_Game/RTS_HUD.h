@@ -26,7 +26,11 @@ public:
 
 	void StartGameHelp();
 
+	void StartRound();
+
 	void ExitGame();
+
+
 
 	TSharedPtr<class SCompoundWidget> m_CurrentWidget;
 private:

@@ -50,3 +50,11 @@ void ARTS_HUD::StartGameDefending()
 	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
 	m_CurrentWidget->SetVisibility(EVisibility::Visible);
 }
+
+void ARTS_HUD::StartRound()
+{
+	m_CurrentWidget.Reset();
+
+	m_CurrentWidget = SNew(SRTS_UserInterface).OwnerHUDArg(this);
+	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
+}

@@ -38,8 +38,8 @@ struct FRTS_UnitStats
 {
 	GENERATED_BODY();
 
-	UPROPERTY(VisibleAnywhere)
-	TSubclassOf<class ARTS_Unit> UnitClass;
+	//UPROPERTY(VisibleAnywhere)
+	//TSubclassOf<class ARTS_Unit> UnitClass;
 
 	UPROPERTY(VisibleAnywhere)
 	EUnitName UnitName = EUnitName::NONE;
@@ -104,4 +104,6 @@ class RTS_GAME_API URTS_Lib : public UObject
 
 public:
 	static FRTS_UnitStats GetUnitStats(EUnitName a_UnitType, ETeamColor a_TeamColor = ETeamColor::NONE);
+
+	static UClass *GetUnitBlueprintClass(EUnitName a_UnitName);
 };

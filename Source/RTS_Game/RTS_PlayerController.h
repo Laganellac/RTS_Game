@@ -26,6 +26,8 @@ public:
 
 	void AddUnit(EUnitName a_UnitName);
 
+	void StartRound();
+
 	FORCEINLINE int32 GetCurrentGold() { return m_Stats.CurrentGold; };
 
 	FORCEINLINE ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
@@ -74,5 +76,5 @@ private:
 	// Stores the group of currently selected units
 	TArray<class ARTS_Unit *> m_SelectedUnits;
 
-	TArray<TSubclassOf<class ARTS_Unit>> m_PurchasedUnits;
+	TArray<EUnitName> m_PurchasedUnits;
 };

@@ -22,6 +22,8 @@ public:
 	void Construct(const FArguments& InArgs);
 
 private:
+	FReply PlayButtonClicked();
+
 	int32 GetGoldAmount() const;
 
 	FText GetGoldText() const;

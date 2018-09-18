@@ -88,7 +88,33 @@ void SRTS_UnitShopMenu::Construct(const FArguments& InArgs)
 				]
 			]
 		]
+
+		+ SVerticalBox::Slot()
+		.HAlign(HAlign_Center)
+		.VAlign(VAlign_Center)
+		.AutoHeight()
+		[
+			SNew(SButton)
+			.HAlign(HAlign_Center)
+			.VAlign(VAlign_Center)
+			.OnClicked(this, &SRTS_UnitShopMenu::PlayButtonClicked)
+			.DesiredSizeScale(FVector2D(3.f, 3.f))
+			[
+				SNew(STextBlock)
+				.ColorAndOpacity(FLinearColor::Black)
+				.Font(FSlateFontInfo("Veranda", 18))
+				.Text(LOCTEXT("Play", "Play!"))
+			]
+			
+		]
 	];
+}
+
+FReply SRTS_UnitShopMenu::PlayButtonClicked()
+{
+	m_CurrentController->StartRound();
+	m_OwnerHUD->StartRound();
+	return FReply::Handled();
 }
 
 int32 SRTS_UnitShopMenu::GetGoldAmount() const

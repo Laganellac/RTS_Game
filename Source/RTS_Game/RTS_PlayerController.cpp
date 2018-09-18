@@ -13,7 +13,7 @@ ARTS_PlayerController::ARTS_PlayerController()
 	// Member variables of parent class
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Hand;
-
+	
 
 	m_Stats.CurrentGold = 1000;
 	// Member variables of this class
@@ -77,9 +77,33 @@ void ARTS_PlayerController::AddUnit(EUnitName a_UnitName)
 {
 	FRTS_UnitStats tempUnitStats = URTS_Lib::GetUnitStats(a_UnitName);
 
-	m_PurchasedUnits.Add(tempUnitStats.UnitClass);
-
+	m_PurchasedUnits.Add(tempUnitStats.UnitName);
 	m_Stats.CurrentGold -= tempUnitStats.Cost;
+	
+}
+
+void ARTS_PlayerController::StartRound()
+{
+	FVector cameraPawnLocation = GetPawn()->GetActorLocation();
+	FVector spawnLocation;
+	ARTS_Unit *unitCast;
+	UClass *blueprintClass;
+
+	for (int i = 0; i < m_PurchasedUnits.Num(); i++)
+	{
+		blueprintClass = URTS_Lib::GetUnitBlueprintClass(m_PurchasedUnits[i]);
+		spawnLocation = cameraPawnLocation + FVector(i / 2 * 100, i % 2 * 100, 0);
+		unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass , &spawnLocation));
+
+		if (unitCast)
+		{
+			unitCast->SetTeamColor(m_Stats.TeamColor);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Fatal, TEXT("IT DIDNT CAST TO A UNIT :("));
+		}
+	}
 }
 
 //30 min 9.6.18
