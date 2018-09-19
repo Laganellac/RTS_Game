@@ -29,14 +29,15 @@ enum class ETeamColor : uint8
 	RED,
 	BLUE,
 	BLACK,
-	WHITE
+	WHITE,
+	ALL,
 };
 
 // Holds all stats relevent to a unit. Defaults to 0.f 30 min 9.1.18
 USTRUCT(BlueprintType)
 struct FRTS_UnitStats
 {
-	GENERATED_BODY();
+	GENERATED_BODY()
 
 	//UPROPERTY(VisibleAnywhere)
 	//TSubclassOf<class ARTS_Unit> UnitClass;
@@ -87,7 +88,7 @@ struct FRTS_UnitStats
 USTRUCT(BlueprintType)
 struct FRTS_PlayerStats
 {
-	GENERATED_BODY();
+	GENERATED_BODY()
 
 	UPROPERTY(VisibleAnywhere)
 	ETeamColor TeamColor = ETeamColor::NONE;

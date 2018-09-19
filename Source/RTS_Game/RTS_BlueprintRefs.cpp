@@ -10,6 +10,7 @@ URTS_BlueprintRefs::URTS_BlueprintRefs()
 	AddBlueprint(EUnitName::ARCHER, FString(TEXT("Class'/Game/UnitBP/BP_Archer.BP_Archer_C'")).GetCharArray().GetData());
 	AddBlueprint(EUnitName::HEALER, FString(TEXT("Class'/Game/UnitBP/BP_Healer.BP_Healer_C'")).GetCharArray().GetData());
 	AddBlueprint(EUnitName::SWORDSMAN, FString(TEXT("Class'/Game/UnitBP/BP_Swordsman.BP_Swordsman_C'")).GetCharArray().GetData());
+	//AddBlueprint(EUnitName::GENERAL, FString(TEXT("Class'/Game/UnitBP/BP_General.BP_General_C'")).GetCharArray().GetData());
 }
 
 UClass *URTS_BlueprintRefs::GetBlueprintClass(EUnitName a_UnitName)

@@ -69,3 +69,5 @@ private:
 	// List of actors that overlap m_AttackTrigger
 	TArray<AActor *> m_OverlappingActors;
 };
+
+
