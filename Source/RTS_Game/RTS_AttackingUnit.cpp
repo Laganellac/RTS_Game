@@ -36,10 +36,17 @@ void ARTS_AttackingUnit::AttackTargetUnit(ARTS_Unit *a_TargetUnit)
 {
 	m_IsAttackMoving = false;
 	m_IsAttackingTarget = true;
-	m_TargetUnit = a_TargetUnit;
 
-	// Doesn't reset flags like this version does
-	ARTS_Unit::MoveTo(a_TargetUnit->GetActorLocation());
+	if (m_TargetUnit == this)
+	{
+		AttackMove(GetActorLocation());
+	}
+	else
+	{
+		// Doesn't reset flags like this version does
+		ARTS_Unit::MoveTo(a_TargetUnit->GetActorLocation());
+	}
+
 }
 
 void ARTS_AttackingUnit::MoveTo(const FVector &a_Location)
@@ -107,7 +114,7 @@ void ARTS_AttackingUnit::TickAttackMove()
 		if (tempUnit)
 		{
 			// This is basically &&?? test this idea somewhere else before condensing
-			if (tempUnit->GetTeamColor() == m_TargetTeamColor)
+			if (tempUnit->GetTeamColor() == m_TargetTeamColor && tempUnit != this)
 			{
 				m_TargetedUnits.Add(tempUnit);
 			}

@@ -39,7 +39,7 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 	{
 		statsStruct.AttackSpeed = 0.5f;
 		statsStruct.Cost = 200;
-		statsStruct.Damage = 5.f;
+		statsStruct.Damage = (-5.f);
 		statsStruct.Range = 400.f;
 		statsStruct.Speed = 1.f;
 		statsStruct.TotalEnergy = 100.f;

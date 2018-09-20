@@ -36,11 +36,21 @@ void ARTS_Unit::MoveTo(const FVector &a_Location)
 
 void ARTS_Unit::RecieveDamage(ARTS_Unit *a_Source, const float &a_Damage)
 {
-	m_Stats.CurrentHealth -= a_Damage;
+	// The potential result after taking damage or healing
+	float potentialHealth = m_Stats.CurrentHealth - a_Damage;
 
-	if (IsDead())
+	if (potentialHealth >= m_Stats.TotalHealth)
 	{
-		//Die();
+		m_Stats.CurrentHealth = m_Stats.TotalHealth;
+	}
+	else
+	{
+		m_Stats.CurrentHealth = potentialHealth;
+
+		if (IsDead())
+		{
+			//Die();
+		}
 	}
 }
 

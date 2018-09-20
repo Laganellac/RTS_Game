@@ -16,7 +16,9 @@ class RTS_GAME_API ARTS_Healer : public ARTS_AttackingUnit
 
 public:
 	ARTS_Healer();
+
+	virtual void Attack() override;
 	
-	
-	
+	virtual void SetTeamColor(ETeamColor a_TeamColor) override;
+
 };
