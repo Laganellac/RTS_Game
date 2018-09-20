@@ -25,11 +25,13 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	FORCEINLINE void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
+	virtual void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
 
 	void SetSelected();
 
 	void SetDeselected();
+
+	FRTS_UnitStats *GetUnitStatsForBuff(class ARTS_BuffingUnit *a_BuffingUnit);
 
 	FORCEINLINE const FRTS_UnitStats GetUnitStats() const { return m_Stats; };
 

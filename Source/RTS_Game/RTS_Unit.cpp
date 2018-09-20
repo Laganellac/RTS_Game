@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "RTS_Unit.h"
+#include "RTS_BuffingUnit.h"
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Runtime/Engine/Classes/Components/SkeletalMeshComponent.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
@@ -58,6 +59,15 @@ void ARTS_Unit::SetSelected()
 void ARTS_Unit::SetDeselected()
 {
 	m_SelectionIndicator->SetVisibility(false);
+}
+
+FRTS_UnitStats * ARTS_Unit::GetUnitStatsForBuff(ARTS_BuffingUnit * a_BuffingUnit)
+{
+	if (Cast<ARTS_BuffingUnit>(a_BuffingUnit))
+	{
+		return &m_Stats;
+	}
+	return nullptr;
 }
 
 void ARTS_Unit::Move()

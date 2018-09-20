@@ -31,8 +31,8 @@ public:
 
 protected:
 
-	UFUNCTION()
 	// Attack using the information stored in m_TargetUnits
+	UFUNCTION()
 	virtual void Attack();
 	
 	virtual void BeginPlay() override;

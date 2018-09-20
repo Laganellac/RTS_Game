@@ -28,7 +28,7 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.AttackSpeed = 0.5f;
 		statsStruct.Cost = 100;
 		statsStruct.Damage = 15.f;
-		statsStruct.Range = 200.f;
+		statsStruct.Range = 50.f;
 		statsStruct.Speed = 1.f;
 		statsStruct.TotalEnergy = 100.f;
 		statsStruct.TotalHealth = 200.f;
@@ -52,7 +52,7 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.AttackSpeed = 0.f;
 		statsStruct.Cost = 200;
 		statsStruct.Damage = 0.f;
-		statsStruct.Range = 0.f;
+		statsStruct.Range = 500.f;
 		statsStruct.Speed = 1.f;
 		statsStruct.TotalEnergy = 200.f;
 		statsStruct.TotalHealth = 150.f;

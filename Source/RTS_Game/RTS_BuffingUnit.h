@@ -35,6 +35,7 @@ protected:
 
 	class USphereComponent *m_BuffTrigger;
 
+	UPROPERTY(VisibleAnywhere)
 	ETeamColor m_TargetColor;
 	
 	TArray<ARTS_Unit *> m_TargetedUnits;
