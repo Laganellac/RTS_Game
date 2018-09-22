@@ -7,6 +7,13 @@
 #include "GameFramework/Character.h"
 #include "RTS_Unit.generated.h"
 
+enum class EAttackResult
+{
+	NONE,
+	ALIVE,
+	DEAD,
+};
+
 UCLASS()
 class RTS_GAME_API ARTS_Unit : public ACharacter
 {
@@ -20,7 +27,7 @@ public:
 
 	virtual void MoveTo(const FVector &a_Location);
 
-	void RecieveDamage(class ARTS_Unit *a_Source, const float &a_Damage);
+	EAttackResult RecieveDamage(class ARTS_Unit *a_Source, const float &a_Damage);
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -66,6 +73,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void Die();
 
 	UFUNCTION()
 	virtual void Move();

@@ -28,13 +28,18 @@ void ARTS_Unit::BeginPlay()
 	m_Stats.CurrentEnergy = m_Stats.TotalEnergy;
 }
 
+void ARTS_Unit::Die()
+{
+	Destroy();
+}
+
 void ARTS_Unit::MoveTo(const FVector &a_Location)
 {
 	m_MoveLocation = a_Location;
 	Move();
 }
 
-void ARTS_Unit::RecieveDamage(ARTS_Unit *a_Source, const float &a_Damage)
+EAttackResult ARTS_Unit::RecieveDamage(ARTS_Unit *a_Source, const float &a_Damage)
 {
 	// The potential result after taking damage or healing
 	float potentialHealth = m_Stats.CurrentHealth - a_Damage;
@@ -49,9 +54,11 @@ void ARTS_Unit::RecieveDamage(ARTS_Unit *a_Source, const float &a_Damage)
 
 		if (IsDead())
 		{
-			//Die();
+			Die();
+			return EAttackResult::DEAD;
 		}
 	}
+	return EAttackResult::ALIVE;
 }
 
 // Called every frame

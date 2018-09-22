@@ -37,13 +37,15 @@ void ARTS_AttackingUnit::AttackTargetUnit(ARTS_Unit *a_TargetUnit)
 	m_IsAttackMoving = false;
 	m_IsAttackingTarget = true;
 
-	if (m_TargetUnit == this)
+	if (a_TargetUnit == this)
 	{
+		// Attack moves in place
 		AttackMove(GetActorLocation());
 	}
 	else
 	{
 		// Doesn't reset flags like this version does
+		m_TargetUnit = a_TargetUnit;
 		ARTS_Unit::MoveTo(a_TargetUnit->GetActorLocation());
 	}
 
@@ -64,7 +66,18 @@ void ARTS_AttackingUnit::Attack()
 		return;
 	}
 
-	m_TargetedUnits[0]->RecieveDamage(this, m_Stats.Damage);
+	EAttackResult result;
+	GetWorldTimerManager().SetTimer(m_AttackLockoutTimer, m_Stats.AttackSpeed, false);
+
+	result = m_TargetedUnits[0]->RecieveDamage(this, m_Stats.Damage);
+
+	if (result == EAttackResult::DEAD)
+	{
+
+		AttackMove(GetActorLocation());
+	}
+
+	
 
 	// For debugging purposes
 	if (GEngine)
@@ -72,7 +85,7 @@ void ARTS_AttackingUnit::Attack()
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Attacked ") + m_TargetedUnits[0]->GetName() + TEXT(", current health = ") + FString::SanitizeFloat(m_TargetedUnits[0]->GetCurrentHealth(), 1)));
 	}
 
-	GetWorldTimerManager().SetTimer(m_AttackLockoutTimer, m_Stats.AttackSpeed, false);
+	
 }
 
 void ARTS_AttackingUnit::BeginPlay()
