@@ -14,7 +14,7 @@ class RTS_GAME_API ARTS_DefenseTower : public ARTS_AttackingUnit
 {
 	GENERATED_BODY()
 	
-	
-	
+public:
+	ARTS_DefenseTower();
 	
 };

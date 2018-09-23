@@ -47,6 +47,16 @@ void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 		.VAlign(VAlign_Top)
 		[
 			SNew(STextBlock)
+			.Text(this, &SRTS_UnitListElement::GetNameText)
+			.ColorAndOpacity(FLinearColor::Black)
+			.Font(FSlateFontInfo("Veranda", 18))
+		]
+
+		+ SVerticalBox::Slot()
+		.HAlign(HAlign_Center)
+		.VAlign(VAlign_Top)
+		[
+			SNew(STextBlock)
 			.Text(this, &SRTS_UnitListElement::GetHealthText)
 			.ColorAndOpacity(FLinearColor::Black)
 			.Font(FSlateFontInfo("Veranda", 18))
@@ -57,9 +67,9 @@ void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 		.VAlign(VAlign_Top)
 		[
 			SNew(STextBlock)
-			.Text(this, &SRTS_UnitListElement::GetDamageText)
+			.Text(this, &SRTS_UnitListElement::GetDescriptionText)
 			.ColorAndOpacity(FLinearColor::Black)
-			.Font(FSlateFontInfo("Veranda", 18))
+			.Font(FSlateFontInfo("Veranda", 14))
 		]
 
 		+ SVerticalBox::Slot()
@@ -106,14 +116,24 @@ FText SRTS_UnitListElement::GetDamageText() const
 	return FText::FromString(FString::Printf(TEXT("Damage: %f"), m_UnitStats.Damage));
 }
 
+FText SRTS_UnitListElement::GetDescriptionText() const
+{
+	return FText::FromString(m_UnitStats.UnitDescription);
+}
+
 FText SRTS_UnitListElement::GetHealthText() const
 {
-	return FText::FromString(FString::Printf(TEXT("Health: %f"), m_UnitStats.TotalHealth));
+	return FText::FromString(FString::Printf(TEXT("Health: %.0f"), m_UnitStats.TotalHealth));
 }
 
 FSlateBrush SRTS_UnitListElement::GetIcon() const
 {
 	return FSlateBrush();
+}
+
+FText SRTS_UnitListElement::GetNameText() const
+{
+	return FText::FromString(m_UnitStats.UnitNameString);
 }
 
 FText SRTS_UnitListElement::GetRangeText() const

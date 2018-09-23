@@ -13,6 +13,8 @@ TArray<FRTS_UnitStats> ARTS_GameGameModeBase::GetTeamAvailableUnitList(ETeamColo
 	{
 		unitStats.Add(URTS_Lib::GetUnitStats(EUnitName::SWORDSMAN));
 		unitStats.Add(URTS_Lib::GetUnitStats(EUnitName::ARCHER));
+		unitStats.Add(URTS_Lib::GetUnitStats(EUnitName::DEFENSE_TOWER));
+		unitStats.Add(URTS_Lib::GetUnitStats(EUnitName::BANK));
 	}
 
 	// Attacking units

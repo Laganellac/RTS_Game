@@ -95,6 +95,11 @@ void ARTS_AttackingUnit::BeginPlay()
 	m_AttackTrigger->SetSphereRadius(m_Stats.Range, true);
 }
 
+void ARTS_AttackingUnit::Move()
+{
+	ARTS_Unit::Move();
+}
+
 void ARTS_AttackingUnit::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

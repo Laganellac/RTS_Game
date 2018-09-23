@@ -96,7 +96,7 @@ void ARTS_PlayerController::StartRound()
 	for (int i = 0; i < m_PurchasedUnits.Num(); i++)
 	{
 		blueprintClass = m_BlueprintRefs->GetBlueprintClass(m_PurchasedUnits[i]);
-		spawnLocation = cameraPawnLocation + FVector(i / 2 * 100, i % 2 * 100, 0);
+		spawnLocation = cameraPawnLocation + FVector(i / 2 * 300, i % 2 * 300, 800);
 		unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass , &spawnLocation));
 
 		if (unitCast)

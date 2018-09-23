@@ -89,6 +89,7 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 				SNew(SButton)
 				.ClickMethod(EButtonClickMethod::DownAndUp)
 				.ContentPadding(FMargin(20, 10))
+				.OnClicked(this, &SRTS_StartGameMenu::DefendButtonPressed)
 				.HAlign(HAlign_Center)
 				.VAlign(VAlign_Center)
 				[
@@ -183,6 +184,12 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 FReply SRTS_StartGameMenu::AttackButtonPressed()
 {
 	m_OwnerHUD->StartGameAttacking();
+	return FReply::Handled();
+}
+
+FReply SRTS_StartGameMenu::DefendButtonPressed()
+{
+	m_OwnerHUD->StartGameDefending();
 	return FReply::Handled();
 }
 

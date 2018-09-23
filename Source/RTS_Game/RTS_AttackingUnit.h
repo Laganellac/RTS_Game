@@ -37,6 +37,9 @@ protected:
 	
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	virtual void Move();
+
 	virtual void Tick(float DeltaTime) override;
 	
 	UFUNCTION()

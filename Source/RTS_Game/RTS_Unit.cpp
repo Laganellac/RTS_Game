@@ -89,7 +89,11 @@ FRTS_UnitStats * ARTS_Unit::GetUnitStatsForBuff(ARTS_BuffingUnit * a_BuffingUnit
 
 void ARTS_Unit::Move()
 {
-	// Simple fill-in version for testing THIS SHOULD ALWAYS BE OVERRIDEN
+	if (m_Stats.Speed <= 0.f)
+	{
+		return;
+	}
+
 	UNavigationSystem::SimpleMoveToLocation(this->GetController(), m_MoveLocation);
 }
 

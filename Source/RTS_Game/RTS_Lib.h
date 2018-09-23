@@ -19,6 +19,8 @@ enum class EUnitName : uint8
 	SWORDSMAN,
 	HEALER,
 	GENERAL,
+	DEFENSE_TOWER,
+	BANK,
 };
 
 
@@ -39,8 +41,14 @@ struct FRTS_UnitStats
 {
 	GENERATED_BODY()
 
-	//UPROPERTY(VisibleAnywhere)
-	//TSubclassOf<class ARTS_Unit> UnitClass;
+		//UPROPERTY(VisibleAnywhere)
+		//TSubclassOf<class ARTS_Unit> UnitClass;
+
+	UPROPERTY()
+	FString UnitNameString = "";
+
+	UPROPERTY()
+	FString UnitDescription = "";
 
 	UPROPERTY(VisibleAnywhere)
 	EUnitName UnitName = EUnitName::NONE;

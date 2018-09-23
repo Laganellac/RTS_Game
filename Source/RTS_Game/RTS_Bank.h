@@ -14,7 +14,8 @@ class RTS_GAME_API ARTS_Bank : public ARTS_Unit
 {
 	GENERATED_BODY()
 	
-	
+public:
+	ARTS_Bank();
 	
 	
 };

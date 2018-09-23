@@ -21,6 +21,8 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.TotalEnergy = 100.f;
 		statsStruct.TotalHealth = 100.f;
 		statsStruct.UnitName = a_UnitName;
+		statsStruct.UnitNameString = "Archer";
+		statsStruct.UnitDescription = "Ranged unit, deals average damage";
 	}
 
 	else if (a_UnitName == EUnitName::SWORDSMAN)
@@ -33,6 +35,8 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.TotalEnergy = 100.f;
 		statsStruct.TotalHealth = 200.f;
 		statsStruct.UnitName = a_UnitName;
+		statsStruct.UnitNameString = "Swordsman";
+		statsStruct.UnitDescription = "Melee unit, deals a lot of damage";
 	}
 
 	else if (a_UnitName == EUnitName::HEALER)
@@ -45,6 +49,8 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.TotalEnergy = 100.f;
 		statsStruct.TotalHealth = 50.f;
 		statsStruct.UnitName = a_UnitName;
+		statsStruct.UnitNameString = "Healer";
+		statsStruct.UnitDescription = "Ranged unit, heals friendly units";
 	}
 
 	else if (a_UnitName == EUnitName::GENERAL)
@@ -57,6 +63,37 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.TotalEnergy = 200.f;
 		statsStruct.TotalHealth = 150.f;
 		statsStruct.UnitName = a_UnitName;
+		statsStruct.UnitNameString = "General";
+		statsStruct.UnitDescription = "2x nearby unit damage (cannot attack)";
+		
+	}
+
+	else if (a_UnitName == EUnitName::DEFENSE_TOWER)
+	{
+		statsStruct.AttackSpeed = 1.5f;
+		statsStruct.Cost = 250;
+		statsStruct.Damage = 20.f;
+		statsStruct.Range = 600.f;
+		statsStruct.Speed = 0.f;
+		statsStruct.TotalEnergy = 200.f;
+		statsStruct.TotalHealth = 300.f;
+		statsStruct.UnitName = a_UnitName;
+		statsStruct.UnitNameString = "Defense tower";
+		statsStruct.UnitDescription = "Immobile tower that hits slow but hard (ranged)";
+	}
+
+	else if (a_UnitName == EUnitName::BANK)
+	{
+		statsStruct.AttackSpeed = 0.f;
+		statsStruct.Cost = 200.f;
+		statsStruct.Damage = 0.f;
+		statsStruct.Range = 0.f;
+		statsStruct.Speed = 0.f;
+		statsStruct.TotalEnergy = 0.f;
+		statsStruct.TotalHealth = 300.f;
+		statsStruct.UnitName = a_UnitName;
+		statsStruct.UnitNameString = "Bank";
+		statsStruct.UnitDescription = "Increases next rounds starting gold";
 	}
 
 	else

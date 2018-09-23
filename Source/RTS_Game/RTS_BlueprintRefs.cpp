@@ -11,6 +11,8 @@ URTS_BlueprintRefs::URTS_BlueprintRefs()
 	AddBlueprint(EUnitName::HEALER, FString(TEXT("Class'/Game/UnitBP/BP_Healer.BP_Healer_C'")).GetCharArray().GetData());
 	AddBlueprint(EUnitName::SWORDSMAN, FString(TEXT("Class'/Game/UnitBP/BP_Swordsman.BP_Swordsman_C'")).GetCharArray().GetData());
 	AddBlueprint(EUnitName::GENERAL, FString(TEXT("Class'/Game/UnitBP/BP_General.BP_General_C'")).GetCharArray().GetData());
+	AddBlueprint(EUnitName::DEFENSE_TOWER, FString(TEXT("Class'/Game/UnitBP/BP_DefenseTower.BP_DefenseTower_C'")).GetCharArray().GetData());
+	AddBlueprint(EUnitName::BANK, FString(TEXT("Class'/Game/UnitBP/BP_Bank.BP_Bank_C'")).GetCharArray().GetData());
 }
 
 UClass *URTS_BlueprintRefs::GetBlueprintClass(EUnitName a_UnitName)

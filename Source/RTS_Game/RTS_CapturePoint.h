@@ -14,7 +14,30 @@ class RTS_GAME_API ARTS_CapturePoint : public ATriggerCapsule
 {
 	GENERATED_BODY()
 	
+public:
+
+	ARTS_CapturePoint();
+
+protected:
+
+	virtual void BeginPlay() override;
 	
-	
-	
+	UFUNCTION()
+	void BeginOverlap(AActor *a_OverlappingActor, AActor *a_OtherActor);
+
+	UFUNCTION()
+	void EndOverlap(AActor *a_OverlappingActor, AActor *a_OtherActor);
+
+	UFUNCTION()
+	void OnTimerTick();
+
+private:
+
+	uint8 m_CurrentScore;
+	uint8 m_MaxScore;
+
+	// 
+	FTimerHandle m_AttackLockoutTimer;
+
+	TArray<class ARTS_Unit*> m_OverlappingAttackers;
 };

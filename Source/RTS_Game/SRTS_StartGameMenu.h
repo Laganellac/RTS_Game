@@ -23,7 +23,7 @@ private:
 
 	FReply AttackButtonPressed();
 
-	void DefendPressed();
+	FReply DefendButtonPressed();
 
 	void HelpPressed();
 

@@ -29,9 +29,13 @@ private:
 
 	FText GetDamageText() const;
 
+	FText GetDescriptionText() const;
+
 	FText GetHealthText() const;
 
 	FSlateBrush GetIcon() const;
+
+	FText GetNameText() const;
 
 	FText GetRangeText() const;
 

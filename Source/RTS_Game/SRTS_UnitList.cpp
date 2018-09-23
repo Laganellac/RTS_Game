@@ -85,61 +85,6 @@ void SRTS_UnitList::Construct(const FArguments& InArgs)
 				]
 			]
 		]
-
-		+ SVerticalBox::Slot()
-		.HAlign(HAlign_Center)
-		.VAlign(VAlign_Top)
-		[
-			SNew(SHorizontalBox)
-			
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SBorder)
-				[
-					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
-					.CurrentControllerArg(m_CurrentController)
-				]
-			]
-
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SBorder)
-				[
-					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
-					.CurrentControllerArg(m_CurrentController)
-				]
-			]
-
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SBorder)
-				[
-					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
-					.CurrentControllerArg(m_CurrentController)
-				]
-			]
-
-			+ SHorizontalBox::Slot()
-			.HAlign(HAlign_Center)
-			.VAlign(VAlign_Top)
-			[
-				SNew(SBorder)
-				[
-					SNew(SRTS_UnitListElement)
-					.UnitStatsArg(unitStats[0])
-					.CurrentControllerArg(m_CurrentController)
-				]
-			]
-		]
 	];
 }
 
