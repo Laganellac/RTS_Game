@@ -241,6 +241,12 @@ void ARTS_PlayerController::SelectionPressed()
 
 void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 {
+	// Do nothing if the player doesnt click on the ground
+	if (a_Hit.Location.Z > 1.f)
+	{
+		return;
+	}
+
 	FVector spawnLocation = a_Hit.Location + FVector(0.f, 0.f, 100.f);
 
 	if (m_MustSpawnPoint)
@@ -253,13 +259,14 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 		}
 		else
 		{
-			UE_LOG(LogTemp, Fatal, TEXT("FAILED TO SPAWN CAPTUREPOINT :("));
+			m_MustSpawnPoint = true;
 		}
 		return;
 	}
 
 	// Pops unit out of the purchased units array
-	UClass *blueprintClass = m_BlueprintRefs->GetBlueprintClass(m_PurchasedUnits.Pop());
+	EUnitName currentUnit = m_PurchasedUnits.Pop();
+	UClass *blueprintClass = m_BlueprintRefs->GetBlueprintClass(currentUnit);
 	ARTS_Unit *unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass, &spawnLocation));
 
 	if (unitCast)
@@ -268,7 +275,8 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Fatal, TEXT("FAILED TO SPAWN UNIT :("));
+		// If it failed to spawn here, add it back to the array
+		m_PurchasedUnits.Add(currentUnit);
 	}
 
 	// If there are no purchased units left in the array

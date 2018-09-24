@@ -83,7 +83,6 @@ void SRTS_UnitShopMenu::Construct(const FArguments& InArgs)
 					.ColorAndOpacity(FLinearColor::Red)
 					.ShadowOffset(FIntPoint(-1, 1))
 					.Font(FSlateFontInfo("Veranda", 32))
-					//localized text to be translated with a generic name HelloSlateText
 					.Text(this, &SRTS_UnitShopMenu::GetGoldText)
 				]
 			]
