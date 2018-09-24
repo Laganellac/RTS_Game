@@ -99,6 +99,7 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 	else if (a_UnitName == EUnitName::POINT)
 	{
 		statsStruct.UnitNameString = "Capture Point";
+		// Hello
 	}
 
 	else

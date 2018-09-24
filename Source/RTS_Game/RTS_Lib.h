@@ -10,7 +10,7 @@
  * 
  */
 
-
+// Holds all the different types of units
 UENUM(BlueprintType, Meta = (Bitflags))
 enum class EUnitName : uint8
 {

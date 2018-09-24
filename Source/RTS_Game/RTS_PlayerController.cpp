@@ -103,20 +103,22 @@ void ARTS_PlayerController::StartRound()
 
 EUnitName ARTS_PlayerController::GetNextUnitToSpawn()
 {
+	// If the capture point hasnt been spawned then it will be the first thing on the list
 	if (m_MustSpawnPoint)
 	{
 		return EUnitName::POINT;
 	}
 
 	
+	// If there are units still in the array returnt the one that will be popped
 	if (m_PurchasedUnits.Num())
 	{
 		return m_PurchasedUnits.Last();
 	}
 	
-	
+
+	// If there are no units left return NONE
 	return EUnitName::NONE;
-	
 }
 
 //30 min 9.6.18
