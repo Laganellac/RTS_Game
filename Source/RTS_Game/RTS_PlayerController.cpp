@@ -5,6 +5,7 @@
 #include "RTS_Unit.h"
 #include "RTS_AttackingUnit.h"
 #include "RTS_BlueprintRefs.h"
+#include "RTS_CapturePoint.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -14,11 +15,15 @@ ARTS_PlayerController::ARTS_PlayerController()
 	// Member variables of parent class
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Hand;
+
+
 	
 
 	m_Stats.CurrentGold = 1000;
 	// Member variables of this class
 	m_GroupingUnits = false;
+	m_MustSpawnPoint = false;
+	m_PlacingUnits = false;
 
 	m_BlueprintRefs = NewObject<URTS_BlueprintRefs>();
 	//NewObject<URTS_BlueprintRefs>(m_BlueprintRefs, URTS_BlueprintRefs::StaticClass());
@@ -88,26 +93,12 @@ void ARTS_PlayerController::AddUnit(EUnitName a_UnitName)
 
 void ARTS_PlayerController::StartRound()
 {
-	FVector cameraPawnLocation = GetPawn()->GetActorLocation();
-	FVector spawnLocation;
-	ARTS_Unit *unitCast;
-	UClass *blueprintClass;
-
-	for (int i = 0; i < m_PurchasedUnits.Num(); i++)
+	// If this player is on defense
+	if (m_Stats.TeamColor == ETeamColor::BLUE)
 	{
-		blueprintClass = m_BlueprintRefs->GetBlueprintClass(m_PurchasedUnits[i]);
-		spawnLocation = cameraPawnLocation + FVector(i / 2 * 300, i % 2 * 300, 800);
-		unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass , &spawnLocation));
-
-		if (unitCast)
-		{
-			unitCast->SetTeamColor(m_Stats.TeamColor);
-		}
-		else
-		{
-			UE_LOG(LogTemp, Fatal, TEXT("IT DIDNT CAST TO A UNIT :("));
-		}
+		m_MustSpawnPoint = true;
 	}
+	m_PlacingUnits = true;
 }
 
 //30 min 9.6.18
@@ -207,6 +198,12 @@ void ARTS_PlayerController::SelectionPressed()
 	GetHitResultUnderCursor(ECollisionChannel::ECC_GameTraceChannel1, false, hit);
 	DrawDebugSphere(GetWorld(), hit.Location, 25, 10, FColor::Yellow, false, 20.f);
 
+	if (m_PlacingUnits)
+	{
+		SpawnUnit(hit);
+		return;
+	}
+
 	if (m_Attacking)
 	{
 		Attack(hit);
@@ -240,6 +237,50 @@ void ARTS_PlayerController::SelectionPressed()
 	
 	// Used for selection boxes
 	//m_Selecting = true;
+}
+
+void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
+{
+	FVector spawnLocation = a_Hit.Location + FVector(0.f, 0.f, 100.f);
+
+	if (m_MustSpawnPoint)
+	{
+		m_MustSpawnPoint = false;
+		ARTS_CapturePoint *capturePointCast = Cast<ARTS_CapturePoint>(GetWorld()->SpawnActor(ARTS_CapturePoint::StaticClass(), &spawnLocation));
+		if (capturePointCast)
+		{
+			capturePointCast->OnChanged().AddUObject(this, &ARTS_PlayerController::OnPointCapture);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Fatal, TEXT("FAILED TO SPAWN CAPTUREPOINT :("));
+		}
+		return;
+	}
+
+	// Pops unit out of the purchased units array
+	UClass *blueprintClass = m_BlueprintRefs->GetBlueprintClass(m_PurchasedUnits.Pop());
+	ARTS_Unit *unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass, &spawnLocation));
+
+	if (unitCast)
+	{
+		unitCast->SetTeamColor(m_Stats.TeamColor);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Fatal, TEXT("FAILED TO SPAWN UNIT :("));
+	}
+
+	// If there are no purchased units left in the array
+	if (!m_PurchasedUnits.Num())
+	{
+		m_PlacingUnits = false;
+	}
+}
+
+void ARTS_PlayerController::OnPointCapture()
+{
+
 }
 
 // 10 min 8.28.18

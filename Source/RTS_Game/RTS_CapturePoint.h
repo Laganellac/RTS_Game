@@ -6,6 +6,8 @@
 #include "Engine/TriggerCapsule.h"
 #include "RTS_CapturePoint.generated.h"
 
+
+
 /**
  * 
  */
@@ -18,6 +20,9 @@ public:
 
 	ARTS_CapturePoint();
 
+	DECLARE_EVENT(ARTS_CapturePoint, FAttackerCapturedPoint)
+	FAttackerCapturedPoint &OnChanged() { return m_AttackerCapturedPoint; };
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -28,10 +33,19 @@ protected:
 	UFUNCTION()
 	void EndOverlap(AActor *a_OverlappingActor, AActor *a_OtherActor);
 
+	
+
 	UFUNCTION()
 	void OnTimerTick();
 
+
+
 private:
+
+	UFUNCTION()
+	void AttackersWin();
+
+	FAttackerCapturedPoint m_AttackerCapturedPoint;
 
 	uint8 m_CurrentScore;
 	uint8 m_MaxScore;

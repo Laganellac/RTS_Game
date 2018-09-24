@@ -50,7 +50,7 @@ void ARTS_CapturePoint::OnTimerTick()
 		m_CurrentScore++;
 		if (m_CurrentScore >= m_MaxScore)
 		{
-			// AttackersWin();
+			 AttackersWin();
 		}
 	}
 
@@ -59,4 +59,9 @@ void ARTS_CapturePoint::OnTimerTick()
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Current score: %d / %d"), m_CurrentScore, m_MaxScore), 1);
 	}
+}
+
+void ARTS_CapturePoint::AttackersWin()
+{
+	m_AttackerCapturedPoint.Broadcast();
 }

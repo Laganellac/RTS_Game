@@ -39,7 +39,7 @@ public:
 
 protected:
 
-	void Attack(struct FHitResult &a_Hit);
+	void Attack(FHitResult &a_Hit);
 
 	UFUNCTION()
 	void AttackPressed();
@@ -62,15 +62,26 @@ protected:
 	UFUNCTION()
 	void SelectionPressed();
 
+	void SpawnUnit(FHitResult &a_Hit);
+
 private:
+	UFUNCTION()
+	void OnPointCapture();
+
 	UPROPERTY(VisibleAnywhere)
-	FRTS_PlayerStats m_Stats;
-	
-	// Used to check if the player is attempting to group two units together
-	bool m_GroupingUnits;
+	FRTS_PlayerStats m_Stats;	
 
 	// Used to check if the player is attempting to attack
 	bool m_Attacking;
+
+	// Used to check if the player is attempting to group two units together
+	bool m_GroupingUnits;
+
+	// Used to check if this player has spawned a capture point yet
+	bool m_MustSpawnPoint;
+
+	// Used to check if this is the start of the round where units are being spawned
+	bool m_PlacingUnits;
 
 	FHitResult m_InitialSelectionClick;
 
