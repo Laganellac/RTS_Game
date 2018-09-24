@@ -103,20 +103,14 @@ void ARTS_PlayerController::StartRound()
 
 EUnitName ARTS_PlayerController::GetNextUnitToSpawn()
 {
-	if (m_MustSpawnPoint)
-	{
-		return EUnitName::POINT;
-	}
-
-	
 	if (m_PurchasedUnits.Num())
 	{
 		return m_PurchasedUnits.Last();
 	}
-	
-	
-	return EUnitName::NONE;
-	
+	else
+	{
+		return EUnitName::NONE;
+	}
 }
 
 //30 min 9.6.18

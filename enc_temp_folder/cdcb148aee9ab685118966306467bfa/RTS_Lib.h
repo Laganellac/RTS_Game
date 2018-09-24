@@ -21,7 +21,6 @@ enum class EUnitName : uint8
 	GENERAL,
 	DEFENSE_TOWER,
 	BANK,
-	POINT,
 };
 
 

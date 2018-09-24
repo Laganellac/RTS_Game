@@ -16,6 +16,7 @@ void SRTS_SpawningUnitsHUD::Construct(const FArguments& InArgs)
 {
 	m_OwnerHUD = InArgs._OwnerHUDArg;
 	m_CurrentController = InArgs._CurrentControllerArg;
+	m_CurrentUnit = TAttribute<EUnitName>(this, &SRTS_SpawningUnitsHUD::GetUnitName);
 	
 	ChildSlot
 	[
@@ -42,9 +43,18 @@ void SRTS_SpawningUnitsHUD::Construct(const FArguments& InArgs)
 	];
 	
 }
+
+
+
+
+EUnitName SRTS_SpawningUnitsHUD::GetUnitName() const
+{
+	return m_CurrentController->GetNextUnitToSpawn();
+}
+
 FText SRTS_SpawningUnitsHUD::GetText() const
 {
-	m_CurrentController->
-	return FText();
+	FRTS_UnitStats stats = URTS_Lib::GetUnitStats(m_CurrentUnit.Get());
+	return FText::FromString(FString::Printf(TEXT("Current unit: %s"), stats.UnitNameString.GetCharArray().GetData()));
 }
 END_SLATE_FUNCTION_BUILD_OPTIMIZATION

@@ -96,11 +96,6 @@ FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamCol
 		statsStruct.UnitDescription = "Increases next rounds starting gold";
 	}
 
-	else if (a_UnitName == EUnitName::POINT)
-	{
-		statsStruct.UnitNameString = "Capture Point";
-	}
-
 	else
 	{
 		statsStruct.UnitName = EUnitName::NONE;

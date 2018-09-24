@@ -31,6 +31,8 @@ public:
 
 	FORCEINLINE int32 GetCurrentGold() { return m_Stats.CurrentGold; };
 
+	EUnitName GetNextUnitToSpawn();
+
 	FORCEINLINE ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
 
 	FORCEINLINE void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
@@ -86,9 +88,12 @@ private:
 	FHitResult m_InitialSelectionClick;
 
 	// Stores the group of currently selected units
+	UPROPERTY()
 	TArray<class ARTS_Unit *> m_SelectedUnits;
 
+	UPROPERTY()
 	class URTS_BlueprintRefs *m_BlueprintRefs;
 
+	UPROPERTY()
 	TArray<EUnitName> m_PurchasedUnits;
 };

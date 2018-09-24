@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "RTS_Lib.h"
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
@@ -23,8 +24,11 @@ public:
 
 private:
 
+	EUnitName GetUnitName() const;
+
 	FText GetText() const;
 
+	TAttribute<EUnitName> m_CurrentUnit;
 	TWeakObjectPtr<class ARTS_HUD> m_OwnerHUD;
 	TWeakObjectPtr<class ARTS_PlayerController> m_CurrentController;
 
