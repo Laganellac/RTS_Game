@@ -28,9 +28,9 @@ public:
 
 	void StartRound();
 
+	void StartInGameHUD();
+
 	void ExitGame();
-
-
 
 	TSharedPtr<class SCompoundWidget> m_CurrentWidget;
 private:

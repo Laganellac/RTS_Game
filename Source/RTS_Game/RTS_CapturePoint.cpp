@@ -30,7 +30,10 @@ void ARTS_CapturePoint::BeginOverlap(AActor *a_Trigger, AActor * a_OtherActor)
 	ARTS_Unit *unitCast = Cast<ARTS_Unit>(a_OtherActor);
 	if (unitCast)
 	{
-		m_OverlappingAttackers.Add(unitCast);
+		if (unitCast->GetTeamColor() != m_TeamColor)
+		{
+			m_OverlappingAttackers.Add(unitCast);
+		}
 	}
 }
 

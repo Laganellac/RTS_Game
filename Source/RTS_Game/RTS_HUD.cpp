@@ -59,3 +59,11 @@ void ARTS_HUD::StartRound()
 	m_CurrentWidget = SNew(SRTS_SpawningUnitsHUD).OwnerHUDArg(this).CurrentControllerArg(m_CurrentController);
 	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
 }
+
+void ARTS_HUD::StartInGameHUD()
+{
+	m_CurrentWidget.Reset();
+
+	m_CurrentWidget = SNew(SRTS_UserInterface).OwnerHUDArg(this).CurrentControllerArg(m_CurrentController);
+	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
+}

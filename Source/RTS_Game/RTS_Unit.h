@@ -70,6 +70,9 @@ public:
 	UFUNCTION(BlueprintPure, Category = "TeamColor")
 	FORCEINLINE enum ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
 
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE FString GetUnitNameAsString() { return m_Stats.UnitNameString; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

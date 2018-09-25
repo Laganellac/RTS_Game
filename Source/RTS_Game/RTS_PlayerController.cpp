@@ -16,9 +16,6 @@ ARTS_PlayerController::ARTS_PlayerController()
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Hand;
 
-
-	
-
 	m_Stats.CurrentGold = 1000;
 	// Member variables of this class
 	m_GroupingUnits = false;
@@ -99,6 +96,15 @@ void ARTS_PlayerController::StartRound()
 		m_MustSpawnPoint = true;
 	}
 	m_PlacingUnits = true;
+}
+
+ARTS_Unit * ARTS_PlayerController::GetSelectedUnit()
+{
+	if (m_SelectedUnits.Num())
+	{
+		return m_SelectedUnits[0];
+	}
+	return nullptr;
 }
 
 EUnitName ARTS_PlayerController::GetNextUnitToSpawn()
@@ -276,6 +282,7 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 		if (capturePointCast)
 		{
 			capturePointCast->OnChanged().AddUObject(this, &ARTS_PlayerController::OnPointCapture);
+			capturePointCast->SetTeamColor(ETeamColor::BLUE);
 		}
 		else
 		{
@@ -304,6 +311,7 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 	if (!m_PurchasedUnits.Num())
 	{
 		m_PlacingUnits = false;
+		m_CurrentHUD->StartInGameHUD();
 	}
 }
 

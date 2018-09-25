@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "RTS_Lib.h"
 #include "CoreMinimal.h"
 #include "Engine/TriggerCapsule.h"
 #include "RTS_CapturePoint.generated.h"
@@ -23,6 +24,8 @@ public:
 	DECLARE_EVENT(ARTS_CapturePoint, FAttackerCapturedPoint)
 	FAttackerCapturedPoint &OnChanged() { return m_AttackerCapturedPoint; };
 
+	void SetTeamColor(ETeamColor a_TeamColor) { m_TeamColor = a_TeamColor; };
+
 protected:
 
 	virtual void BeginPlay() override;
@@ -33,12 +36,8 @@ protected:
 	UFUNCTION()
 	void EndOverlap(AActor *a_OverlappingActor, AActor *a_OtherActor);
 
-	
-
 	UFUNCTION()
 	void OnTimerTick();
-
-
 
 private:
 
@@ -46,6 +45,8 @@ private:
 	void AttackersWin();
 
 	FAttackerCapturedPoint m_AttackerCapturedPoint;
+
+	ETeamColor m_TeamColor;
 
 	uint8 m_CurrentScore;
 	uint8 m_MaxScore;

@@ -29,6 +29,8 @@ public:
 
 	void StartRound();
 
+	class ARTS_Unit *GetSelectedUnit();
+
 	FORCEINLINE int32 GetCurrentGold() { return m_Stats.CurrentGold; };
 
 	EUnitName GetNextUnitToSpawn();

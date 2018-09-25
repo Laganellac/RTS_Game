@@ -14,12 +14,23 @@ public:
 	SLATE_BEGIN_ARGS(SRTS_UserInterface)
 	{}
 	SLATE_ARGUMENT(TWeakObjectPtr<class ARTS_HUD>, OwnerHUDArg);
+	SLATE_ARGUMENT(class ARTS_PlayerController *, CurrentControllerArg)
+	SLATE_ATTRIBUTE(class ARTS_Unit *, CurrentSelectedUnit)
 	SLATE_END_ARGS()
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 
 private:
-	TWeakObjectPtr<class ARTS_HUD> m_OwnerHUD;
+	class ARTS_Unit *GetCurrentUnit() const;
 
+	FText GetEnergyText() const;
+
+	FText GetNameText() const;
+
+	FText GetHealthText() const;
+
+	class ARTS_PlayerController *m_CurrentController;
+	TWeakObjectPtr<class ARTS_HUD> m_OwnerHUD;
+	TAttribute<class ARTS_Unit *> m_CurrentUnit;
 };
