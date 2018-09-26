@@ -6,6 +6,7 @@
 #include "RTS_AttackingUnit.h"
 #include "RTS_BlueprintRefs.h"
 #include "RTS_CapturePoint.h"
+#include "RTS_CameraPawn.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -324,6 +325,9 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 	if (!m_PurchasedUnits.Num())
 	{
 		m_PlacingUnits = false;
+		// Nasty one-liner, safely cast Getpawn() to CameraPawn then tell it that its allowed to move
+		if (Cast<ARTS_CameraPawn>(GetPawn())) Cast<ARTS_CameraPawn>(GetPawn())->SetCanMove(true);
+		SpawnEnemies();
 		m_CurrentHUD->StartInGameHUD();
 	}
 }
@@ -331,6 +335,11 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 void ARTS_PlayerController::OnPointCapture()
 {
 	m_CurrentHUD->EndRound(ETeamColor::RED);
+}
+
+void ARTS_PlayerController::SpawnEnemies()
+{
+	
 }
 
 // 10 min 8.28.18

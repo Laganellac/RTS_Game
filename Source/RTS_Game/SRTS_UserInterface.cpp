@@ -174,7 +174,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 						.ColorAndOpacity(FLinearColor::Black)
 						.ShadowOffset(FIntPoint(-1, 1))
 						.Font(FSlateFontInfo("Veranda", 16))
-						.Text(LOCTEXT("Exit", "Press escape at anytime to exit the demo"))
+						.Text(LOCTEXT("Exit", "Press escape at anytime to exit the demo OR \"r\" to restart"))
 					]
 				]
 			]

@@ -27,6 +27,8 @@ public:
 	// a_Val either -1.0 or 1.0 depending on keypress
 	void MoveRight(float AxisValue);
 
+	FORCEINLINE void SetCanMove(bool a_CanMove) { m_CanMove = a_CanMove; };
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -48,7 +50,11 @@ private:
 	UPROPERTY()
 	class ARTS_PlayerController* m_PlayerController;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
+	bool m_CanMove;
+
+	UPROPERTY(EditAnywhere)
 	float MOVEMENT_MARGIN = 15.f;
 
+	
 };

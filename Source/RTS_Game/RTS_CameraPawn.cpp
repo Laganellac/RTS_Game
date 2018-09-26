@@ -40,6 +40,9 @@ ARTS_CameraPawn::ARTS_CameraPawn()
 	// Create the camera and attach it to the springarm
 	m_Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	m_Camera->SetupAttachment(m_SpringArm);
+
+	// Dont allow movement until told to
+	m_CanMove = false;
 }
 
 // Called every frame
@@ -47,8 +50,11 @@ void ARTS_CameraPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	GetCameraPanDirection();
-
+	// If we've been told to move
+	if (m_CanMove)
+	{
+		GetCameraPanDirection();
+	}
 }
 
 // Called to bind functionality to input
@@ -87,7 +93,7 @@ void ARTS_CameraPawn::BeginPlay()
 
 void ARTS_CameraPawn::GetCameraPanDirection()
 {
-	// Just incase
+	// Just incase theres no player controller
 	if (m_PlayerController == NULL)
 	{
 		return;

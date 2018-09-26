@@ -77,10 +77,12 @@ protected:
 	void SpawnUnit(FHitResult &a_Hit);
 
 private:
-	
 
 	UFUNCTION()
 	void OnPointCapture();
+
+	UFUNCTION()
+	void SpawnEnemies();
 
 	UPROPERTY(VisibleAnywhere)
 	FRTS_PlayerStats m_Stats;	
