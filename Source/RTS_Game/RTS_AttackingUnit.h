@@ -27,6 +27,8 @@ public:
 	// Needs to be overriden to reset attacking flags because this will be called by controller
 	virtual void MoveTo(const FVector &a_Location) override;
 
+	virtual void SetTeamColor(ETeamColor a_TeamColor) override;
+
 	FORCEINLINE bool IsAttackingMoving() { return m_IsAttackMoving; };
 
 protected:

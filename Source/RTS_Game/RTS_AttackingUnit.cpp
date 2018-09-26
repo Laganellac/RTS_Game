@@ -58,6 +58,26 @@ void ARTS_AttackingUnit::MoveTo(const FVector &a_Location)
 	ARTS_Unit::MoveTo(a_Location);
 }
 
+void ARTS_AttackingUnit::SetTeamColor(ETeamColor a_TeamColor)
+{
+	ARTS_Unit::SetTeamColor(a_TeamColor);
+
+	if (a_TeamColor == ETeamColor::BLUE)
+	{
+		m_TargetTeamColor = ETeamColor::RED;
+	}
+
+	else if (a_TeamColor == ETeamColor::RED)
+	{
+		m_TargetTeamColor = ETeamColor::BLUE;
+	}
+
+	else
+	{
+		m_TargetTeamColor = ETeamColor::NONE;
+	}
+}
+
 void ARTS_AttackingUnit::Attack()
 {
 	// Can't attack faster than attack speed
@@ -82,7 +102,15 @@ void ARTS_AttackingUnit::Attack()
 	// For debugging purposes
 	if (GEngine)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(TEXT("Attacked ") + m_TargetedUnits[0]->GetName() + TEXT(", current health = ") + FString::SanitizeFloat(m_TargetedUnits[0]->GetCurrentHealth(), 1)));
+		if (m_Stats.TeamColor == ETeamColor::BLUE)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, FString(this->GetName() +  TEXT(" attacked ") + m_TargetedUnits[0]->GetName() + TEXT(", current health = ") + FString::SanitizeFloat(m_TargetedUnits[0]->GetCurrentHealth(), 1)));
+		}
+		else if (m_Stats.TeamColor == ETeamColor::RED)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString(this->GetName() + TEXT(" attacked ") + m_TargetedUnits[0]->GetName() + TEXT(", current health = ") + FString::SanitizeFloat(m_TargetedUnits[0]->GetCurrentHealth(), 1)));
+
+		}
 	}
 
 	

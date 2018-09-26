@@ -7,6 +7,7 @@
 #include "RTS_BlueprintRefs.h"
 #include "RTS_CapturePoint.h"
 #include "RTS_CameraPawn.h"
+#include "RTS_DemoEnemy.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -25,6 +26,7 @@ ARTS_PlayerController::ARTS_PlayerController()
 	m_Paused = false;
 
 	m_BlueprintRefs = NewObject<URTS_BlueprintRefs>();
+	m_CapturePoint = nullptr;
 	//NewObject<URTS_BlueprintRefs>(m_BlueprintRefs, URTS_BlueprintRefs::StaticClass());
 }
 
@@ -57,7 +59,7 @@ void ARTS_PlayerController::SetupInputComponent()
 void ARTS_PlayerController::Tick(float a_DeltaTime)
 {
 
-
+	
 
 	// If we are currently making a selection box
 	//if (m_Selecting)
@@ -91,6 +93,11 @@ void ARTS_PlayerController::AddUnit(EUnitName a_UnitName)
 	m_PurchasedUnits.Add(tempUnitStats.UnitName);
 	m_Stats.CurrentGold -= tempUnitStats.Cost;
 	
+}
+
+void ARTS_PlayerController::OnPointCapture()
+{
+	m_CurrentHUD->EndRound(ETeamColor::RED);
 }
 
 void ARTS_PlayerController::StartRound()
@@ -293,10 +300,12 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 	{
 		m_MustSpawnPoint = false;
 		ARTS_CapturePoint *capturePointCast = Cast<ARTS_CapturePoint>(GetWorld()->SpawnActor(ARTS_CapturePoint::StaticClass(), &spawnLocation));
+		// Cast returns 0 if invalid cast
 		if (capturePointCast)
 		{
 			capturePointCast->OnChanged().AddUObject(this, &ARTS_PlayerController::OnPointCapture);
 			capturePointCast->SetTeamColor(ETeamColor::BLUE);
+			m_CapturePoint = capturePointCast; //REMOVE THIS LINE IN THE FUTURE - FOR DEMO ONLY!!!
 		}
 		else
 		{
@@ -327,19 +336,17 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 		m_PlacingUnits = false;
 		// Nasty one-liner, safely cast Getpawn() to CameraPawn then tell it that its allowed to move
 		if (Cast<ARTS_CameraPawn>(GetPawn())) Cast<ARTS_CameraPawn>(GetPawn())->SetCanMove(true);
-		SpawnEnemies();
+		SpawnEnemies(); // MORE CODE FOR DEMO
 		m_CurrentHUD->StartInGameHUD();
 	}
 }
 
-void ARTS_PlayerController::OnPointCapture()
-{
-	m_CurrentHUD->EndRound(ETeamColor::RED);
-}
-
 void ARTS_PlayerController::SpawnEnemies()
 {
-	
+	m_DemoEnemy = NewObject<URTS_DemoEnemy>();
+	m_DemoEnemy->Construct(this, m_CapturePoint, GetPawn()->GetActorLocation());
+	m_DemoEnemy->SpawnArmy();
+	m_DemoEnemy->ArmyAttack();
 }
 
 // 10 min 8.28.18

@@ -27,6 +27,9 @@ public:
 
 	void AddUnit(EUnitName a_UnitName);
 
+	UFUNCTION()
+	void OnPointCapture();
+
 	void StartRound();
 
 	class ARTS_Unit *GetSelectedUnit();
@@ -72,14 +75,11 @@ protected:
 	UFUNCTION()
 	void SelectionPressed();
 
-	
-
 	void SpawnUnit(FHitResult &a_Hit);
 
 private:
 
-	UFUNCTION()
-	void OnPointCapture();
+	
 
 	UFUNCTION()
 	void SpawnEnemies();
@@ -101,9 +101,13 @@ private:
 	// Used to check if this is the start of the round where units are being spawned
 	bool m_PlacingUnits;
 
-
-
 	FHitResult m_InitialSelectionClick;
+
+	UPROPERTY()
+	class URTS_DemoEnemy *m_DemoEnemy;
+
+	UPROPERTY()
+	class ARTS_CapturePoint *m_CapturePoint;
 
 	// Stores the group of currently selected units
 	UPROPERTY()

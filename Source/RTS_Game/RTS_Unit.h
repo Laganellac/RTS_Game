@@ -68,7 +68,10 @@ public:
 	FORCEINLINE float GetSpeed() { return m_Stats.Speed; };
 
 	UFUNCTION(BlueprintPure, Category = "TeamColor")
-	FORCEINLINE enum ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
+	FORCEINLINE ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
+
+	UFUNCTION(BlueprintPure)
+	FORCEINLINE EUnitName GetUnitName() { return m_Stats.UnitName; };
 
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE FString GetUnitNameAsString() { return m_Stats.UnitNameString; }
