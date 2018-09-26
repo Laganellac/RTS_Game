@@ -55,6 +55,9 @@ protected:
 	bool IsOnPlayerTeam(class ARTS_Unit *a_Unit);
 
 	UFUNCTION()
+	void ExitPressed();
+
+	UFUNCTION()
 	void GroupUnitsPressed();
 
 	UFUNCTION()
@@ -64,7 +67,12 @@ protected:
 	void MovePressed();
 
 	UFUNCTION()
+	void RestartPressed();
+	
+	UFUNCTION()
 	void SelectionPressed();
+
+	
 
 	void SpawnUnit(FHitResult &a_Hit);
 

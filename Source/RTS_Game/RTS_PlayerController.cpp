@@ -48,6 +48,9 @@ void ARTS_PlayerController::SetupInputComponent()
 	InputComponent->BindAction("GroupUnits", IE_Released, this, &ARTS_PlayerController::GroupUnitsReleased);
 
 	InputComponent->BindAction("Attack", IE_Pressed, this, &ARTS_PlayerController::AttackPressed);
+
+	InputComponent->BindAction("Exit", IE_Pressed, this, &ARTS_PlayerController::ExitPressed);
+	InputComponent->BindAction("Reset", IE_Pressed, this, &ARTS_PlayerController::RestartPressed);
 }
 
 void ARTS_PlayerController::Tick(float a_DeltaTime)
@@ -205,6 +208,12 @@ bool ARTS_PlayerController::IsOnPlayerTeam(ARTS_Unit * a_Unit)
 	return false;
 }
 
+void ARTS_PlayerController::ExitPressed()
+{
+	// Exit the game
+	FGenericPlatformMisc::RequestExit(false);
+}
+
 // 5 min 8.28.18
 void ARTS_PlayerController::GroupUnitsPressed()
 {
@@ -338,4 +347,9 @@ void ARTS_PlayerController::MovePressed()
 		m_SelectedUnits[i]->MoveTo(moveLocation);
 		//DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 3.f);
 	}
+}
+
+void ARTS_PlayerController::RestartPressed()
+{
+	this->ConsoleCommand(TEXT("RestartLevel"));
 }
