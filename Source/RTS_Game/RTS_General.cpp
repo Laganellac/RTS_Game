@@ -41,6 +41,8 @@ void ARTS_General::UnBuff(ARTS_Unit *a_TargetUnit)
 
 void ARTS_General::SetTeamColor(ETeamColor a_TeamColor)
 {
+	ARTS_Unit::SetTeamColor(a_TeamColor);
+
 	// A general buffs his own units
 	m_Stats.TeamColor = a_TeamColor;
 	m_TargetColor = a_TeamColor;

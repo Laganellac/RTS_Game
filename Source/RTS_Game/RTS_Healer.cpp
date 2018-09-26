@@ -40,6 +40,7 @@ void ARTS_Healer::Attack()
 
 void ARTS_Healer::SetTeamColor(ETeamColor a_TeamColor)
 {
-	m_Stats.TeamColor = a_TeamColor;
+	ARTS_Unit::SetTeamColor(a_TeamColor);
+
 	m_TargetTeamColor = a_TeamColor;
 }

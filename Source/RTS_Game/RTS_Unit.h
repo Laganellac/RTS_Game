@@ -32,7 +32,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	virtual void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
+	virtual void SetTeamColor(ETeamColor a_TeamColor);
 
 	void SetSelected();
 
@@ -97,7 +97,8 @@ protected:
 
 private:
 	
-
+	UPROPERTY(EditDefaultsOnly)
+	class USpotLightComponent *m_ColorLight;
 	
 
 };

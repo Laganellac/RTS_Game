@@ -32,5 +32,7 @@ private:
 
 	class ARTS_PlayerController *m_CurrentController;
 	TWeakObjectPtr<class ARTS_HUD> m_OwnerHUD;
+
 	TAttribute<class ARTS_Unit *> m_CurrentUnit;
+	TAttribute<float> m_CurrentCapturePercentage;
 };

@@ -69,6 +69,8 @@ protected:
 	void SpawnUnit(FHitResult &a_Hit);
 
 private:
+	
+
 	UFUNCTION()
 	void OnPointCapture();
 
@@ -84,8 +86,12 @@ private:
 	// Used to check if this player has spawned a capture point yet
 	bool m_MustSpawnPoint;
 
+	bool m_Paused;
+	
 	// Used to check if this is the start of the round where units are being spawned
 	bool m_PlacingUnits;
+
+
 
 	FHitResult m_InitialSelectionClick;
 

@@ -2,6 +2,7 @@
 
 #include "RTS_Unit.h"
 #include "RTS_BuffingUnit.h"
+#include "Runtime/Engine/Classes/Components/SpotLightComponent.h"
 #include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
 #include "Runtime/Engine/Classes/Components/SkeletalMeshComponent.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
@@ -15,6 +16,10 @@ ARTS_Unit::ARTS_Unit()
 	m_SelectionIndicator = CreateDefaultSubobject<UStaticMeshComponent>("SelectedIndicator");
 	m_SelectionIndicator->SetupAttachment(GetMesh());
 	m_SelectionIndicator->SetVisibility(true);
+
+	m_ColorLight = CreateDefaultSubobject<USpotLightComponent>("ColorLight");
+	m_ColorLight->SetupAttachment(GetMesh());
+	m_ColorLight->SetVisibility(true);
 
 	m_Stats.UnitName = EUnitName::NONE;
 }
@@ -66,6 +71,26 @@ void ARTS_Unit::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void ARTS_Unit::SetTeamColor(ETeamColor a_TeamColor)
+{
+	m_Stats.TeamColor = a_TeamColor;
+
+	if (a_TeamColor == ETeamColor::BLUE)
+	{
+		m_ColorLight->SetLightColor(FLinearColor::Blue);
+	}
+
+	else if (a_TeamColor == ETeamColor::RED)
+	{
+		m_ColorLight->SetLightColor(FLinearColor::Red);
+	}
+
+	else
+	{
+		m_ColorLight->SetLightColor(FLinearColor::Black);
+	}
 }
 
 void ARTS_Unit::SetSelected()

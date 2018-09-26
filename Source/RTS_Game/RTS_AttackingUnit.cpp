@@ -176,10 +176,21 @@ void ARTS_AttackingUnit::TickAttackTarget()
 		}
 	}
 
-	// Chase down the target if not currently in range
+	// Check if any units are still in range
 	if (m_TargetedUnits.Num() == 0)
 	{
-		ARTS_Unit::MoveTo(m_TargetUnit->GetActorLocation());
+		// If the target still exists go chase it
+		if (m_TargetUnit->IsValidLowLevel())
+		{
+			ARTS_Unit::MoveTo(m_TargetUnit->GetActorLocation());
+		}
+
+		// If the target no longer exists just attack move in place
+		else
+		{
+
+			AttackMove(GetActorLocation());
+		}
 	}
 	else
 	{

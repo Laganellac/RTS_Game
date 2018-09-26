@@ -24,18 +24,17 @@ public:
 
 	void StartGameDefending();
 
-	void StartGameHelp();
-
 	void StartRound();
 
 	void StartInGameHUD();
 
-	void ExitGame();
+	void EndRound(ETeamColor a_Winner);
 
 	TSharedPtr<class SCompoundWidget> m_CurrentWidget;
 private:
 
 	class ARTS_PlayerController *m_CurrentController;
 
+	TArray<TSharedPtr<class SCompoundWidget>> m_WidgetStack;
 };
 

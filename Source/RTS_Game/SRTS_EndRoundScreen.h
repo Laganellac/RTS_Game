@@ -2,33 +2,29 @@
 
 #pragma once
 
+#include "RTS_Lib.h"
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
 /**
  * 
  */
-class RTS_GAME_API SRTS_StartGameMenu : public SCompoundWidget
+class RTS_GAME_API SRTS_EndRoundScreen : public SCompoundWidget
 {
 public:
-	SLATE_BEGIN_ARGS(SRTS_StartGameMenu)
+	SLATE_BEGIN_ARGS(SRTS_EndRoundScreen)
 	{}
 	SLATE_ARGUMENT(TWeakObjectPtr<class ARTS_HUD>, OwnerHUDArg);
+	SLATE_ARGUMENT(ETeamColor, WinningTeamArg);
 	SLATE_END_ARGS()
 
 	/** Constructs this widget with InArgs */
 	void Construct(const FArguments& InArgs);
 
 private:
+	FReply ExitPressed() const;
 
-	FReply AttackButtonPressed();
+	FText GetText() const;
 
-	FReply DefendButtonPressed();
-
-	void HelpPressed();
-
-	FReply ExitPressed();
-
-	TWeakObjectPtr<class ARTS_HUD> m_OwnerHUD;
-
+	ETeamColor m_WinningTeam;
 };

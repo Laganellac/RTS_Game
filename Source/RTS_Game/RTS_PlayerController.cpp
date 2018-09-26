@@ -21,6 +21,7 @@ ARTS_PlayerController::ARTS_PlayerController()
 	m_GroupingUnits = false;
 	m_MustSpawnPoint = false;
 	m_PlacingUnits = false;
+	m_Paused = false;
 
 	m_BlueprintRefs = NewObject<URTS_BlueprintRefs>();
 	//NewObject<URTS_BlueprintRefs>(m_BlueprintRefs, URTS_BlueprintRefs::StaticClass());
@@ -222,7 +223,7 @@ void ARTS_PlayerController::SelectionPressed()
 	// Places the hitresult in hit
 	FHitResult hit;
 	GetHitResultUnderCursor(ECollisionChannel::ECC_GameTraceChannel1, false, hit);
-	DrawDebugSphere(GetWorld(), hit.Location, 25, 10, FColor::Yellow, false, 20.f);
+	//DrawDebugSphere(GetWorld(), hit.Location, 25, 10, FColor::Yellow, false, 20.f);
 
 	if (m_PlacingUnits)
 	{
@@ -257,9 +258,12 @@ void ARTS_PlayerController::SelectionPressed()
 	}
 
 	//******check if this unit is on the same team
+	if (m_Stats.TeamColor == clickedUnit->GetTeamColor())
+	{
+		clickedUnit->SetSelected();
+		m_SelectedUnits.Add(clickedUnit);
+	}
 
-	clickedUnit->SetSelected();
-	m_SelectedUnits.Add(clickedUnit);
 	
 	// Used for selection boxes
 	//m_Selecting = true;
@@ -317,7 +321,7 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 
 void ARTS_PlayerController::OnPointCapture()
 {
-
+	m_CurrentHUD->EndRound(ETeamColor::RED);
 }
 
 // 10 min 8.28.18
@@ -332,6 +336,6 @@ void ARTS_PlayerController::MovePressed()
 	{
 		FVector moveLocation = hit.Location + FVector(i / 2 * 100, i % 2 * 100, 0);
 		m_SelectedUnits[i]->MoveTo(moveLocation);
-		DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 3.f);
+		//DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 3.f);
 	}
 }

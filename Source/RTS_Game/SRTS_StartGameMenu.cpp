@@ -41,7 +41,7 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 				.ColorAndOpacity(FLinearColor::Red)
 				.ShadowOffset(FIntPoint(-1, 1))
 				.Font(FSlateFontInfo("Veranda", 32))
-				//localized text to be translated with a generic name HelloSlateText
+
 				.Text(LOCTEXT("Welcome text", "Welcome to RTS_Game"))
 			]
 		]
@@ -69,7 +69,6 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 					.ColorAndOpacity(FLinearColor::Black)
 					.ShadowOffset(FIntPoint(-1, 1))
 					.Font(FSlateFontInfo("Veranda", 32))
-					//localized text to be translated with a generic name HelloSlateText
 					.Text(LOCTEXT("Attack", "Attack"))
 				]
 			]
@@ -98,7 +97,6 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 					.ColorAndOpacity(FLinearColor::Black)
 					.ShadowOffset(FIntPoint(-1, 1))
 					.Font(FSlateFontInfo("Veranda", 32))
-					//localized text to be translated with a generic name HelloSlateText
 					.Text(LOCTEXT("Defend", "Defend"))
 				]
 			]
@@ -146,6 +144,7 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 				SNew(SButton)
 				.ClickMethod(EButtonClickMethod::DownAndUp)
 				.ContentPadding(FMargin(20, 10))
+				.OnClicked(this, &SRTS_StartGameMenu::ExitPressed)
 				.HAlign(HAlign_Center)
 				.VAlign(VAlign_Center)
 				[
@@ -158,7 +157,7 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 					.Text(LOCTEXT("Exit", "Exit"))
 				]
 			]
-	]
+		]
 
 		// Sixth element, blank for now
 		+ SVerticalBox::Slot()
@@ -190,6 +189,13 @@ FReply SRTS_StartGameMenu::AttackButtonPressed()
 FReply SRTS_StartGameMenu::DefendButtonPressed()
 {
 	m_OwnerHUD->StartGameDefending();
+	return FReply::Handled();
+}
+
+FReply SRTS_StartGameMenu::ExitPressed()
+{
+	// Exit the game
+	FGenericPlatformMisc::RequestExit(false);
 	return FReply::Handled();
 }
 

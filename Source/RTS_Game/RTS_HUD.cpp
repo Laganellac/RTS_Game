@@ -6,6 +6,7 @@
 #include "SRTS_StartGameMenu.h"
 #include "SRTS_UnitShopMenu.h"
 #include "SRTS_SpawningUnitsHUD.h"
+#include "SRTS_EndRoundScreen.h"
 #include "Runtime/Slate/Public/Widgets/SWeakWidget.h"
 #include "Runtime/Engine/Classes/Engine/Engine.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
@@ -66,4 +67,13 @@ void ARTS_HUD::StartInGameHUD()
 
 	m_CurrentWidget = SNew(SRTS_UserInterface).OwnerHUDArg(this).CurrentControllerArg(m_CurrentController);
 	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
+}
+
+void ARTS_HUD::EndRound(ETeamColor a_Winner)
+{
+	m_CurrentWidget.Reset();
+
+	m_CurrentWidget = SNew(SRTS_EndRoundScreen).WinningTeamArg(a_Winner);
+	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
+	m_CurrentWidget->SetVisibility(EVisibility::Visible);
 }
