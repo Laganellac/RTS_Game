@@ -129,7 +129,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 						.ColorAndOpacity(FLinearColor::Black)
 						.ShadowOffset(FIntPoint(-1, 1))
 						.Font(FSlateFontInfo("Veranda", 16))
-						.Text(LOCTEXT("Attacking", "With unit(s) selected press \"a\" + left click on the ground or another unit to attack"))
+						.Text(LOCTEXT("Attacking", "With unit(s) selected press \"a\" on the ground or another unit to attack"))
 					]
 				]
 
