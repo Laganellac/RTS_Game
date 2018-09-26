@@ -38,6 +38,8 @@ public:
 
 	EUnitName GetNextUnitToSpawn();
 
+	int GetNumAlive();
+
 	FORCEINLINE ETeamColor GetTeamColor() { return m_Stats.TeamColor; };
 
 	FORCEINLINE void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
@@ -101,6 +103,8 @@ private:
 	// Used to check if this is the start of the round where units are being spawned
 	bool m_PlacingUnits;
 
+	bool m_RoundStarted;
+
 	FHitResult m_InitialSelectionClick;
 
 	UPROPERTY()
@@ -115,6 +119,8 @@ private:
 
 	UPROPERTY()
 	class URTS_BlueprintRefs *m_BlueprintRefs;
+
+	TArray<class ARTS_Unit *> m_Units;
 
 	UPROPERTY()
 	TArray<EUnitName> m_PurchasedUnits;

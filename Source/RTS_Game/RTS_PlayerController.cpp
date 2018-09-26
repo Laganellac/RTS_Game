@@ -8,6 +8,7 @@
 #include "RTS_CapturePoint.h"
 #include "RTS_CameraPawn.h"
 #include "RTS_DemoEnemy.h"
+#include "Runtime/Engine/Classes/Components/CapsuleComponent.h"
 #include "Runtime/Engine/Classes/AI/Navigation/NavigationSystem.h"
 #include "Runtime/Engine/Public/DrawDebugHelpers.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
@@ -24,9 +25,11 @@ ARTS_PlayerController::ARTS_PlayerController()
 	m_MustSpawnPoint = false;
 	m_PlacingUnits = false;
 	m_Paused = false;
+	m_RoundStarted = false;
 
 	m_BlueprintRefs = NewObject<URTS_BlueprintRefs>();
 	m_CapturePoint = nullptr;
+	
 	//NewObject<URTS_BlueprintRefs>(m_BlueprintRefs, URTS_BlueprintRefs::StaticClass());
 }
 
@@ -59,8 +62,31 @@ void ARTS_PlayerController::SetupInputComponent()
 void ARTS_PlayerController::Tick(float a_DeltaTime)
 {
 
-	
+	if (m_DemoEnemy->IsValidLowLevel())
+	{
+		// If all the enemy's units are dead you win
+		if (!m_DemoEnemy->GetNumAlive())
+		{
+			m_CurrentHUD->EndRound(m_Stats.TeamColor);
+		}
+	}
 
+	if (m_RoundStarted)
+	{
+		// If all your units are dead you lose
+		if (!GetNumAlive())
+		{
+			if (m_Stats.TeamColor == ETeamColor::RED)
+			{
+				m_CurrentHUD->EndRound(ETeamColor::BLUE);
+			}
+			else if (m_Stats.TeamColor == ETeamColor::BLUE)
+			{
+				m_CurrentHUD->EndRound(ETeamColor::RED);
+			}
+		}
+
+	}
 	// If we are currently making a selection box
 	//if (m_Selecting)
 	//{
@@ -137,6 +163,23 @@ EUnitName ARTS_PlayerController::GetNextUnitToSpawn()
 
 	// If there are no units left return NONE
 	return EUnitName::NONE;
+}
+
+int ARTS_PlayerController::GetNumAlive()
+{
+	for (int i = 0; i < m_Units.Num(); i++)
+	{
+		if (m_Units[i]->IsValidLowLevel())
+		{
+
+		}
+		else
+		{
+			m_Units.RemoveAt(i, 1, false);
+		}
+	}
+	m_Units.Shrink();
+	return m_Units.Num();
 }
 
 //30 min 9.6.18
@@ -314,14 +357,24 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 		return;
 	}
 
+	FVector tempLocation = FVector(0, 0, -1000.f);
+
 	// Pops unit out of the purchased units array
 	EUnitName currentUnit = m_PurchasedUnits.Pop();
 	UClass *blueprintClass = m_BlueprintRefs->GetBlueprintClass(currentUnit);
-	ARTS_Unit *unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass, &spawnLocation));
+	ARTS_Unit *unitCast = Cast<ARTS_Unit>(GetWorld()->SpawnActor(blueprintClass, &tempLocation));
+	float halfHeight;
 
 	if (unitCast)
 	{
+		// ALL units have a CapsuleComponent as their root so this should be safe
+		UCapsuleComponent *capsule = (UCapsuleComponent *)unitCast->GetRootComponent();
+		halfHeight = capsule->GetScaledCapsuleHalfHeight();
+		spawnLocation = spawnLocation + FVector(0.f, 0.f, halfHeight);
+		
 		unitCast->SetTeamColor(m_Stats.TeamColor);
+		unitCast->GetRootComponent()->SetWorldLocation(spawnLocation);
+		m_Units.Add(unitCast);
 	}
 	else
 	{
@@ -338,6 +391,7 @@ void ARTS_PlayerController::SpawnUnit(FHitResult &a_Hit)
 		if (Cast<ARTS_CameraPawn>(GetPawn())) Cast<ARTS_CameraPawn>(GetPawn())->SetCanMove(true);
 		SpawnEnemies(); // MORE CODE FOR DEMO
 		m_CurrentHUD->StartInGameHUD();
+		m_RoundStarted = true;
 	}
 }
 
@@ -360,9 +414,19 @@ void ARTS_PlayerController::MovePressed()
 	for (int32 i = 0; i < m_SelectedUnits.Num(); i++)
 	{
 		FVector moveLocation = hit.Location + FVector(i / 2 * 100, i % 2 * 100, 0);
-		m_SelectedUnits[i]->MoveTo(moveLocation);
-		//DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 3.f);
+		// Make sure this unit still exists (it could've died)
+		if (m_SelectedUnits[i]->IsValidLowLevel())
+		{
+			m_SelectedUnits[i]->MoveTo(moveLocation);
+		}
+		// Remove it if its dead
+		else
+		{
+			m_SelectedUnits.RemoveAt(i, 1, false);
+		}
+		DrawDebugSphere(GetWorld(), moveLocation, 25, 10, FColor::Red, false, 0.2f);
 	}
+	m_SelectedUnits.Shrink();
 }
 
 void ARTS_PlayerController::RestartPressed()

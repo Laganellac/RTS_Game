@@ -169,3 +169,20 @@ void URTS_DemoEnemy::SpawnArmy()
 		}
 	}
 }
+
+int URTS_DemoEnemy::GetNumAlive()
+{
+	for (int i = 0; i < m_Units.Num(); i++)
+	{
+		if (m_Units[i]->IsValidLowLevel())
+		{
+
+		}
+		else
+		{
+			m_Units.RemoveAt(i, 1, false);
+		}
+	}
+	m_Units.Shrink();
+	return m_Units.Num();
+}

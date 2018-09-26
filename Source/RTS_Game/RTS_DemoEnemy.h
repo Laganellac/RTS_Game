@@ -23,6 +23,8 @@ public:
 	void Construct(class ARTS_PlayerController *a_OwningController, class ARTS_CapturePoint *a_CapturePoint, const FVector &a_EnemySpawnLoc);
 
 	void SpawnArmy();
+
+	int GetNumAlive();
 	
 private:
 
