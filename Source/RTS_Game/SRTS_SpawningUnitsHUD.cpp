@@ -12,6 +12,10 @@
 #include "Runtime/SlateCore/Public/Brushes/SlateColorBrush.h"
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
+
+/**
+* Defines the layout of the widget
+*/
 void SRTS_SpawningUnitsHUD::Construct(const FArguments& InArgs)
 {
 	m_OwnerHUD = InArgs._OwnerHUDArg;
@@ -44,14 +48,19 @@ void SRTS_SpawningUnitsHUD::Construct(const FArguments& InArgs)
 	
 }
 
-
-
-
+/**
+* Gets the next unit to be spawned
+* @return EUnitName - The name of next unit
+*/
 EUnitName SRTS_SpawningUnitsHUD::GetUnitName() const
 {
 	return m_CurrentController->GetNextUnitToSpawn();
 }
 
+/**
+* Turns the EUnitName into text for the user
+* @return FText - The text to display to the user
+*/
 FText SRTS_SpawningUnitsHUD::GetText() const
 {
 	FRTS_UnitStats stats = URTS_Lib::GetUnitStats(m_CurrentUnit.Get());

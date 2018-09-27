@@ -6,8 +6,8 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
-/**
- * 
+/** SLATE UI element to be used in the unit list widget
+ * @author Christopher Laganella
  */
 
 class RTS_GAME_API SRTS_UnitListElement : public SCompoundWidget

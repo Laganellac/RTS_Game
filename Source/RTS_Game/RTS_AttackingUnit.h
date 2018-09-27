@@ -7,8 +7,8 @@
 #include "RTS_Unit.h"
 #include "RTS_AttackingUnit.generated.h"
 
-/**
- * 
+/** A base class that handles the logic behind attacking other units
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_AttackingUnit : public ARTS_Unit

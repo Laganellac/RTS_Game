@@ -2,12 +2,18 @@
 
 #include "RTS_General.h"
 
-
+/**
+* Gets the stats for this type of unit from URTS_Lib
+*/
 ARTS_General::ARTS_General()
 {
 	m_Stats = URTS_Lib::GetUnitStats(EUnitName::GENERAL);
 }
 
+/**
+* Ovewrites the parent buff. Takes a_TargetUnit's damage and adds 10 to it
+* @param a_TargetUnit ARTS_Unit * - The unit to recieve the buff
+*/
 void ARTS_General::Buff(ARTS_Unit *a_TargetUnit)
 {
 	ARTS_BuffingUnit::Buff(a_TargetUnit);
@@ -24,6 +30,10 @@ void ARTS_General::Buff(ARTS_Unit *a_TargetUnit)
 	}
 }
 
+/**
+* Overwrites the parent unbuff. Takes a_TargetUnit's damage and removes 10 from it
+* @param a_TargetUnit ARTS_Unit * - The unit to unbuff
+*/
 void ARTS_General::UnBuff(ARTS_Unit *a_TargetUnit)
 {
 	ARTS_BuffingUnit::UnBuff(a_TargetUnit);
@@ -39,6 +49,10 @@ void ARTS_General::UnBuff(ARTS_Unit *a_TargetUnit)
 	}
 }
 
+/**
+* Overwrites ARTS_Unit::SetTeamColor so that m_TargetColor is updated
+* @param a_TeamColor ETeamColor - The new TeamColor
+*/
 void ARTS_General::SetTeamColor(ETeamColor a_TeamColor)
 {
 	ARTS_Unit::SetTeamColor(a_TeamColor);

@@ -19,6 +19,9 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SRTS_UnitListElement"
 
+/**
+* Defines the layout of the widget
+*/
 void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 {
 	m_UnitStats = InArgs._UnitStatsArg;
@@ -91,6 +94,10 @@ void SRTS_UnitListElement::Construct(const FArguments& InArgs)
 	];
 }
 
+/**
+* If possible adds the unit to the player's army
+* FReply::Handled()
+*/
 FReply SRTS_UnitListElement::OnClicked() const
 {
 	if (m_CurrentController->GetCurrentGold() < m_UnitStats.Cost)
@@ -106,16 +113,28 @@ FReply SRTS_UnitListElement::OnClicked() const
 	
 }
 
+/**
+* Gets the cost of the unit 
+* @return FText - The cost as readable text for the user
+*/
 FText SRTS_UnitListElement::GetCostText() const
 {
 	return FText::FromString(FString::Printf(TEXT("Cost: %d"), m_UnitStats.Cost));
 }
 
+/**
+* Gets the damage of the unit
+* @return FText - The cost damage as readable text
+*/
 FText SRTS_UnitListElement::GetDamageText() const
 {
 	return FText::FromString(FString::Printf(TEXT("Damage: %f"), m_UnitStats.Damage));
 }
 
+/**
+* Gets the cost of the unit
+* @return FText - The cost as readable text for the user
+*/
 FText SRTS_UnitListElement::GetDescriptionText() const
 {
 	return FText::FromString(m_UnitStats.UnitDescription);

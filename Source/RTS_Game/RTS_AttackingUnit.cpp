@@ -5,7 +5,10 @@
 #include "Runtime/Engine/Classes/Engine/Engine.h"
 #include "Runtime/Engine/Public/TimerManager.h"
 
-
+/**
+* Constructs an attacking unit and sets up the components. 
+* 
+*/
 ARTS_AttackingUnit::ARTS_AttackingUnit()
 {
 	// Setup attack trigger around unit
@@ -23,6 +26,11 @@ ARTS_AttackingUnit::ARTS_AttackingUnit()
 	*/
 }
 
+
+/**
+* Set's member flags so that the unit knows its "attack moving" then calls Super::MoveTo(a_Location)
+* @param a_Location const FVector& - The location to move to
+*/
 void ARTS_AttackingUnit::AttackMove(const FVector &a_Location)
 {
 	m_IsAttackMoving = true;
@@ -32,6 +40,10 @@ void ARTS_AttackingUnit::AttackMove(const FVector &a_Location)
 	Super::MoveTo(a_Location);
 }
 
+/**
+* Set's member flags so that the uni knows to chase down the target. Sets m_TargetUnit to a_TargetUnit
+* @param a_TargetUnit ARTS_Unit * - The unit to attack
+*/
 void ARTS_AttackingUnit::AttackTargetUnit(ARTS_Unit *a_TargetUnit)
 {
 	m_IsAttackMoving = false;
@@ -51,6 +63,10 @@ void ARTS_AttackingUnit::AttackTargetUnit(ARTS_Unit *a_TargetUnit)
 
 }
 
+/**
+* Sets member flags so that the unit knows not to attack then calls ARTS_Unit::MoveTo(a_Location)
+* @param a_Location const FVector& - The location to move to
+*/
 void ARTS_AttackingUnit::MoveTo(const FVector &a_Location)
 {
 	m_IsAttackMoving = false;
@@ -58,6 +74,10 @@ void ARTS_AttackingUnit::MoveTo(const FVector &a_Location)
 	ARTS_Unit::MoveTo(a_Location);
 }
 
+/**
+* Overrides the ARTS_Unit version. First calls the ARTS_Unit version then sets the m_TargetTeamColor to the opposite team
+* @param a_TeamColor ETeamColor - The this units new team color
+*/
 void ARTS_AttackingUnit::SetTeamColor(ETeamColor a_TeamColor)
 {
 	ARTS_Unit::SetTeamColor(a_TeamColor);
@@ -78,6 +98,9 @@ void ARTS_AttackingUnit::SetTeamColor(ETeamColor a_TeamColor)
 	}
 }
 
+/**
+* Attacks the unit stored in m_TargetUnits[0] and outputs the result to the screen (virtual)
+*/
 void ARTS_AttackingUnit::Attack()
 {
 	// Can't attack faster than attack speed
@@ -116,6 +139,9 @@ void ARTS_AttackingUnit::Attack()
 	
 }
 
+/**
+* Called when this unit is spawned. Sets the attack trigger's radius to this units range
+*/
 void ARTS_AttackingUnit::BeginPlay()
 {
 	Super::BeginPlay();
@@ -123,11 +149,18 @@ void ARTS_AttackingUnit::BeginPlay()
 	m_AttackTrigger->SetSphereRadius(m_Stats.Range, true);
 }
 
+/**
+*
+*/
 void ARTS_AttackingUnit::Move()
 {
 	ARTS_Unit::Move();
 }
 
+/**
+* Overrides tick, Calls Super::Tick and then checks if this unit is attack moving or attacking target then calls the respective tick function
+* @param DeltaTime float - A constant value defined by UE4 everytime the tick loop is started
+*/
 void ARTS_AttackingUnit::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -144,6 +177,9 @@ void ARTS_AttackingUnit::Tick(float DeltaTime)
 	}
 }
 
+/**
+* Checks for any units in range then checks if they are on the target team. If they are they will be added to m_TargetUnits
+*/
 void ARTS_AttackingUnit::TickAttackMove()
 {
 	m_OverlappingActors.Empty();
@@ -181,6 +217,9 @@ void ARTS_AttackingUnit::TickAttackMove()
 
 }
 
+/**
+* Checks if m_TargetUnit is in range. If not it tries to acquire m_TargetUnit's location and moves there
+*/
 void ARTS_AttackingUnit::TickAttackTarget()
 {
 	// Make init function ??

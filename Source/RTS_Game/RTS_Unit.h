@@ -7,6 +7,9 @@
 #include "GameFramework/Character.h"
 #include "RTS_Unit.generated.h"
 
+/**
+* Used to tell the attacker if the unit died
+*/
 enum class EAttackResult
 {
 	NONE,
@@ -14,6 +17,10 @@ enum class EAttackResult
 	DEAD,
 };
 
+/**
+* Base class for all units
+* @author Christopher laganella
+*/
 UCLASS()
 class RTS_GAME_API ARTS_Unit : public ACharacter
 {

@@ -9,8 +9,9 @@
 
 
 
-/**
- * 
+/** 
+ * Class for handling the logic of the capture point
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_CapturePoint : public ATriggerCapsule

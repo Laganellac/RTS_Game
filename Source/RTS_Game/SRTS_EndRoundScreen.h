@@ -6,8 +6,8 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
-/**
- * 
+/** SLATE UI for end round screen
+ * @author Christopher Laganella
  */
 class RTS_GAME_API SRTS_EndRoundScreen : public SCompoundWidget
 {

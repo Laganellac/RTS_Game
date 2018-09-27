@@ -6,6 +6,12 @@
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Classes/Engine/Blueprint.h"
 
+/**
+* All the stats for each kind of unit are defined here so that they are only written in one place
+* @param a_UnitName EUnitName - The type of unit to fetch
+* @param a_TeamColor ETeamColor - The team color to set in the statsStruct. Default to NONE
+* @return FRTS_UnitStats - The FRTS_UnitStats struct containing values that correspond to the given unit
+*/
 FRTS_UnitStats URTS_Lib::GetUnitStats(EUnitName a_UnitName, ETeamColor a_TeamColor)
 {
 	FRTS_UnitStats statsStruct;

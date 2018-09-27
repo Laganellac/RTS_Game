@@ -18,6 +18,9 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SRTS_UnitListElement"
 
+/**
+* Defines the layout for this widget
+*/
 void SRTS_UnitList::Construct(const FArguments& InArgs)
 {
 	m_OwnerHUD = InArgs._OwnerHUDArg;

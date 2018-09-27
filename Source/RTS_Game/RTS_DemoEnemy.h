@@ -8,7 +8,7 @@
 #include "RTS_DemoEnemy.generated.h"
 
 /** A class to hold info about the opponent
- * 
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API URTS_DemoEnemy : public UObject

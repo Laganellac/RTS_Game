@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
-/**
- * 
+/** SLATE UI for the start game menu
+ * @author Christopher Laganella
  */
 class RTS_GAME_API SRTS_StartGameMenu : public SCompoundWidget
 {

@@ -9,14 +9,19 @@
 #include "Runtime/Engine/Classes/Components/CapsuleComponent.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 
+/**
+* Creates a reference to a blueprint refs object
+*/
 URTS_DemoEnemy::URTS_DemoEnemy()
 {
 	m_BlueprintRefs = NewObject<URTS_BlueprintRefs>();
 }
 
+/**
+* Depending on if this team is on offense or defense command the army to either attack or defend
+*/
 void URTS_DemoEnemy::ArmyAttack()
 {
-	
 	// If this is on defense
 	if (m_TeamColor == ETeamColor::BLUE)
 	{
@@ -76,6 +81,12 @@ void URTS_DemoEnemy::ArmyAttack()
 	}
 }
 
+/**
+* Construct the demo enemy
+* @param a_OwningController ARTS_PlayerController * - The controller that created this enemy
+* @param a_CapturePoint * - The owning controller's capture point which may or may not exist
+* @param a_EnemySpawnLoc const FVector & - The location of the camerapawn of the controller that spawned this
+*/
 void URTS_DemoEnemy::Construct(ARTS_PlayerController *a_OwningController, ARTS_CapturePoint * a_CapturePoint, const FVector &a_EnemySpawnLoc)
 {
 	// The player that owns this
@@ -102,6 +113,9 @@ void URTS_DemoEnemy::Construct(ARTS_PlayerController *a_OwningController, ARTS_C
 	InitializeArmyList();
 }
 
+/**
+* Determines which units the enemy will buy depending if its on offense or defense
+*/
 void URTS_DemoEnemy::InitializeArmyList()
 {
 	// If this is on defense
@@ -126,6 +140,9 @@ void URTS_DemoEnemy::InitializeArmyList()
 	}
 }
 
+/**
+* Actually spawns the enemy army using m_ArmyList. Spawns the army about 1000 units away from the user
+*/
 void URTS_DemoEnemy::SpawnArmy()
 {
 	if (m_TeamColor == ETeamColor::BLUE)
@@ -170,6 +187,10 @@ void URTS_DemoEnemy::SpawnArmy()
 	}
 }
 
+/**
+* Checks if any values in m_Units have been nulled and removes them
+* @return int - m_Units.Num()
+*/
 int URTS_DemoEnemy::GetNumAlive()
 {
 	for (int i = 0; i < m_Units.Num(); i++)

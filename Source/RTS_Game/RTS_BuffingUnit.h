@@ -7,8 +7,8 @@
 #include "RTS_BuffingUnit.generated.h"
 
 
-/**
- * 
+/** A base class that handles the logic for buffing surrounding units
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_BuffingUnit : public ARTS_Unit

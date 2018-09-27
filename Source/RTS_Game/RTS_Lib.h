@@ -6,8 +6,8 @@
 #include "UObject/NoExportTypes.h"
 #include "RTS_Lib.generated.h"
 
-/**
- * 
+/** Header for defining structs and enums used everywhere within the code
+ * @author Christopher Laganella
  */
 
 // Holds all the different types of units
@@ -24,7 +24,10 @@ enum class EUnitName : uint8
 	POINT,
 };
 
-
+/**
+* Holds different team color values
+* @author Christopher Laganella
+*/
 UENUM(BlueprintType, Meta = (Bitflags))
 enum class ETeamColor : uint8
 {
@@ -36,7 +39,10 @@ enum class ETeamColor : uint8
 	ALL,
 };
 
-// Holds all stats relevent to a unit. Defaults to 0.f 
+/**
+* Holds all stats relevent to a unit. Defaults to 0.f 
+* @author Christopher Laganella
+*/
 USTRUCT(BlueprintType)
 struct FRTS_UnitStats
 {
@@ -90,7 +96,10 @@ struct FRTS_UnitStats
 	float Speed = 0.f;
 };
 
-// Holds all stats relevent to a player. 10 min 9.1.18
+/**
+* Holds all the stats relevent to the player
+* @author Christopher Laganella
+*/
 USTRUCT(BlueprintType)
 struct FRTS_PlayerStats
 {
@@ -107,6 +116,9 @@ struct FRTS_PlayerStats
 	int32 TotalGoldSpent = 0;
 };
 
+/**
+* A static class used for defining functions to be used by all RTS classes
+*/
 UCLASS()
 class RTS_GAME_API URTS_Lib : public UObject
 {

@@ -11,7 +11,9 @@
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 
 
-// Sets default values
+/**
+* Sets up all components to their proper lengths and sets default values
+*/
 ARTS_CameraPawn::ARTS_CameraPawn()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -45,7 +47,10 @@ ARTS_CameraPawn::ARTS_CameraPawn()
 	m_CanMove = false;
 }
 
-// Called every frame
+/**
+* Called every frame. Checks if the camera is allowed to move then GetCameraPanDirection() if true
+* @param DeltaTime float - Constant defined by the engine every tick
+*/
 void ARTS_CameraPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -57,7 +62,10 @@ void ARTS_CameraPawn::Tick(float DeltaTime)
 	}
 }
 
-// Called to bind functionality to input
+/**
+* Binds MoveForward() and MoveRight() to keys. Not currently used but was once used to testing and could be used again
+* @param PlayerInputComponent UInputCompoennt * - A reference to the player inputcomponent that handle keybindings to actions
+*/
 void ARTS_CameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -66,17 +74,27 @@ void ARTS_CameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARTS_CameraPawn::MoveRight);
 }
 
+/**
+* Moves the camerapawn forward or backward depending on a_AxisValue
+* @param a_AxisValue float - Between -1.f and 1.f negative means move backward
+*/
 void ARTS_CameraPawn::MoveForward(float a_AxisValue)
 {
 	AddMovementInput(GetActorForwardVector(), a_AxisValue);
 }
 
+/**
+* Moves the camerapawn left or right depending on a_AxisValue
+* @param a_AxisValue - Between -1.f and 1.f negative means move left
+*/
 void ARTS_CameraPawn::MoveRight(float a_AxisValue)
 {
 	AddMovementInput(GetActorRightVector(), a_AxisValue);
 }
 
-// Called when the game starts or when spawned.
+/**
+* Called when spawned. Makes the ball invisible to the player and gets m_PlayerController
+*/
 void ARTS_CameraPawn::BeginPlay()
 {
 	Super::BeginPlay();
@@ -91,6 +109,9 @@ void ARTS_CameraPawn::BeginPlay()
 	}
 }
 
+/**
+* Gets the mouse location from m_PlayerController and then calls the respective move function based on the location. Outputs mouselocation to dev console.
+*/
 void ARTS_CameraPawn::GetCameraPanDirection()
 {
 	// Just incase theres no player controller

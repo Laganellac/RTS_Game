@@ -5,8 +5,8 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
-/**
- * 
+/** SLATE UI element used in the unit shop menu
+ * @author Christopher Laganella
  */
 class RTS_GAME_API SRTS_UnitList : public SCompoundWidget
 {

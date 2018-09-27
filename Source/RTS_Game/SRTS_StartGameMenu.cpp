@@ -14,6 +14,9 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SRTS_StartGameMenu"
 
+/**
+* Defines the layout of the widget
+*/
 void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 {
 
@@ -180,18 +183,30 @@ void SRTS_StartGameMenu::Construct(const FArguments& InArgs)
 	*/
 }
 
+/**
+* Tells the HUD class that the player wants to attack
+* @return FReply::Handled()
+*/
 FReply SRTS_StartGameMenu::AttackButtonPressed()
 {
 	m_OwnerHUD->StartGameAttacking();
 	return FReply::Handled();
 }
 
+/**
+* Tells the HUD class that the player wants to defend
+* @return FReply::Handled()
+*/
 FReply SRTS_StartGameMenu::DefendButtonPressed()
 {
 	m_OwnerHUD->StartGameDefending();
 	return FReply::Handled();
 }
 
+/**
+* Exits the game
+* @return FReply::Handled
+*/
 FReply SRTS_StartGameMenu::ExitPressed()
 {
 	// Exit the game

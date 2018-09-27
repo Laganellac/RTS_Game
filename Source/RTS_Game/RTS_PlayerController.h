@@ -9,7 +9,8 @@
 
 
 /**
- * 
+ * The class that handles all interaction between the user and the game
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_PlayerController : public APlayerController
@@ -32,6 +33,7 @@ public:
 
 	void StartRound();
 
+	
 	class ARTS_Unit *GetSelectedUnit();
 
 	FORCEINLINE int32 GetCurrentGold() { return m_Stats.CurrentGold; };
@@ -44,6 +46,7 @@ public:
 
 	FORCEINLINE void SetTeamColor(ETeamColor a_TeamColor) { m_Stats.TeamColor = a_TeamColor; };
 
+	// Public... as instructed by UE4 documentation
 	class ARTS_HUD* m_CurrentHUD;
 
 protected:

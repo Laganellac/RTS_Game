@@ -17,6 +17,9 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SRTS_EndRoundScreen"
 
+/**
+* Defines the layout of this widget
+*/
 void SRTS_EndRoundScreen::Construct(const FArguments& InArgs)
 {
 	m_WinningTeam = InArgs._WinningTeamArg;
@@ -71,6 +74,10 @@ void SRTS_EndRoundScreen::Construct(const FArguments& InArgs)
 	
 }
 
+/**
+* Exits the game
+* @return FReply::Handled()
+*/
 FReply SRTS_EndRoundScreen::ExitPressed() const
 {
 	// Exit the game
@@ -78,6 +85,11 @@ FReply SRTS_EndRoundScreen::ExitPressed() const
 	return FReply::Handled();
 }
 
+/**
+* Gets the winning team text
+* @param a_Unt ARTS_Unit * - The unit in questiojn
+* @return FText - The text to display the winning team
+*/
 FText SRTS_EndRoundScreen::GetText() const
 {
 	if (m_WinningTeam == ETeamColor::RED)

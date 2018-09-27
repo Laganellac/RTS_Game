@@ -12,7 +12,9 @@
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 
-
+/**
+* Called when spawned. Acquires m_CurrentController and sets the currentwidget to the SRTS_StartGameMeny
+*/
 void ARTS_HUD::BeginPlay()
 {
 	m_CurrentController = Cast<ARTS_PlayerController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
@@ -22,11 +24,17 @@ void ARTS_HUD::BeginPlay()
 	m_CurrentWidget->SetVisibility(EVisibility::Visible);
 }
 
+/**
+* a hud's version of tick
+*/
 void ARTS_HUD::DrawHUD()
 {
 
 }
 
+/**
+* Changes the widget to SRTS_UnitShopMenu and sets the player controller team color to red
+*/
 void ARTS_HUD::StartGameAttacking()
 {
 	// Deletes the current slate widget
@@ -40,6 +48,9 @@ void ARTS_HUD::StartGameAttacking()
 	m_CurrentWidget->SetVisibility(EVisibility::Visible);
 }
 
+/**
+* Changes the widget to SRTS_UnitShopMenu and sets the player controller team color to blue 
+*/
 void ARTS_HUD::StartGameDefending()
 {
 	// Deletes the current slate widget
@@ -53,6 +64,9 @@ void ARTS_HUD::StartGameDefending()
 	m_CurrentWidget->SetVisibility(EVisibility::Visible);
 }
 
+/**
+* Sets the current widget to SRTS_SpawningUnitsHUD. Called when its time for the user to begin spawning units
+*/
 void ARTS_HUD::StartRound()
 {
 	m_CurrentWidget.Reset();
@@ -61,6 +75,9 @@ void ARTS_HUD::StartRound()
 	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
 }
 
+/**
+* Sets the current widget to SRTS_UsreInterface. Called when the round stars
+*/
 void ARTS_HUD::StartInGameHUD()
 {
 	m_CurrentWidget.Reset();
@@ -69,6 +86,10 @@ void ARTS_HUD::StartInGameHUD()
 	GEngine->GameViewport->AddViewportWidgetContent(SNew(SWeakWidget).PossiblyNullContent(m_CurrentWidget.ToSharedRef()));
 }
 
+/**
+* SEts the current widget to SRTS_EndRoundScreen. Called when a team wins the game
+* @param a_Winner ETeamColor - The winning team color
+*/
 void ARTS_HUD::EndRound(ETeamColor a_Winner)
 {
 	m_CurrentWidget.Reset();

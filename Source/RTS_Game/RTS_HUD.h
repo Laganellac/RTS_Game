@@ -7,8 +7,8 @@
 #include "GameFramework/HUD.h"
 #include "RTS_HUD.generated.h"
 
-/**
- * 
+/** A class for managing the HUD. Chooses which slate widgets are displayed
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_HUD : public AHUD

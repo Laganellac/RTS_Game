@@ -6,8 +6,8 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
-/**
- * 
+/** SLATE UI for spawning units screen
+ * @author Christopher Laganella
  */
 class RTS_GAME_API SRTS_SpawningUnitsHUD : public SCompoundWidget
 {

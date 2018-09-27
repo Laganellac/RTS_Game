@@ -7,7 +7,8 @@
 #include "RTS_General.generated.h"
 
 /**
- * 
+ * A class to handle the logic for General units. To be spawned as a blueprint
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_General : public ARTS_BuffingUnit

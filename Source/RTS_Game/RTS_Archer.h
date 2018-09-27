@@ -8,8 +8,9 @@
 #include "RTS_Archer.generated.h"
 
 /**
- * 
- */
+* A class to handdle logic for archer units. To be spawned as blueprint
+* @author Christopher Laganella
+*/
 UCLASS()
 class RTS_GAME_API ARTS_Archer : public ARTS_AttackingUnit
 {

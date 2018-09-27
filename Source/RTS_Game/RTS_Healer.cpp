@@ -4,11 +4,17 @@
 #include "Runtime/Engine/Classes/Engine/Engine.h"
 #include "Runtime/Engine/Public/TimerManager.h"
 
+/**
+* Sets m_Stats equal to the stats definedd by URTS_Lib for this unit
+*/
 ARTS_Healer::ARTS_Healer()
 {
 	m_Stats = URTS_Lib::GetUnitStats(EUnitName::HEALER);
 }
 
+/**
+* Overwrites ARTS_AttackingUnit::Attack() so that the "attacked" unit is healed
+*/
 void ARTS_Healer::Attack()
 {
 	// Can't attack faster than attack speed
@@ -38,6 +44,10 @@ void ARTS_Healer::Attack()
 	GetWorldTimerManager().SetTimer(m_AttackLockoutTimer, m_Stats.AttackSpeed, false);
 }
 
+/**
+* Overwrites ARTS_Unit::SetTeamColor so that m_TargetTeamColor is updated too
+* @param a_TeamColor ETeamColor - The new team color
+*/
 void ARTS_Healer::SetTeamColor(ETeamColor a_TeamColor)
 {
 	ARTS_Unit::SetTeamColor(a_TeamColor);

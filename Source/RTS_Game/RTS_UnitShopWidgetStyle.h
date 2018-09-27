@@ -8,8 +8,8 @@
 
 #include "RTS_UnitShopWidgetStyle.generated.h"
 
-/**
- * 
+/** Struct used by URTS_UnitShopWidgetStyle
+ * @author Christopher Laganella
  */
 USTRUCT()
 struct RTS_GAME_API FRTS_UnitShopStyle : public FSlateWidgetStyle
@@ -29,7 +29,8 @@ struct RTS_GAME_API FRTS_UnitShopStyle : public FSlateWidgetStyle
 	FSlateBrush ArcherIcon;
 };
 
-/**
+/** Wrapper class for FRTS_UnitShoptStle. For injecting style into unit shop UI... unused currently
+ * @author Christopher Laganella
  */
 UCLASS(hidecategories=Object, MinimalAPI)
 class URTS_UnitShopWidgetStyle : public USlateWidgetStyleContainerBase

@@ -6,6 +6,10 @@
 #include "GameFramework/Pawn.h"
 #include "RTS_CameraPawn.generated.h"
 
+/**
+* The camera used as the viewport for the user
+* @author Christopher Laganella
+*/
 UCLASS()
 class RTS_GAME_API ARTS_CameraPawn : public APawn
 {

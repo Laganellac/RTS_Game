@@ -7,8 +7,8 @@
 #include "GameFramework/GameModeBase.h"
 #include "RTS_GameGameModeBase.generated.h"
 
-/**
- * 
+/** Defines game rules for this game mode
+ * @author Christopher Laganella
  */
 UCLASS()
 class RTS_GAME_API ARTS_GameGameModeBase : public AGameModeBase
