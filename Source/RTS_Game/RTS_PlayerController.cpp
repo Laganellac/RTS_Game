@@ -133,6 +133,12 @@ void ARTS_PlayerController::StartRound()
 	{
 		m_MustSpawnPoint = true;
 	}
+
+	// If no units were purchased restart the game because thats invalid
+	if (!m_PurchasedUnits.Num())
+	{
+		RestartPressed();
+	}
 	m_PlacingUnits = true;
 }
 

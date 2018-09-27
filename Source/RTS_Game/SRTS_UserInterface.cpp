@@ -159,7 +159,7 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 						.ColorAndOpacity(FLinearColor::Black)
 						.ShadowOffset(FIntPoint(-1, 1))
 						.Font(FSlateFontInfo("Veranda", 16))
-						.Text(LOCTEXT("Note", "NOTE: Healer/General cannot attack and will not respond to attack inputs"))
+						.Text(LOCTEXT("Note", "NOTE: General cannot attack and will not respond to attack inputs"))
 					]
 				]
 

@@ -36,14 +36,11 @@ enum class ETeamColor : uint8
 	ALL,
 };
 
-// Holds all stats relevent to a unit. Defaults to 0.f 30 min 9.1.18
+// Holds all stats relevent to a unit. Defaults to 0.f 
 USTRUCT(BlueprintType)
 struct FRTS_UnitStats
 {
 	GENERATED_BODY()
-
-		//UPROPERTY(VisibleAnywhere)
-		//TSubclassOf<class ARTS_Unit> UnitClass;
 
 	UPROPERTY()
 	FString UnitNameString = "";
