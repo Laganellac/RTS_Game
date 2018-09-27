@@ -18,6 +18,9 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SRTS_UnitShopMenu"
 
+/**
+* Defines the layout of the widget
+*/
 void SRTS_UnitShopMenu::Construct(const FArguments& InArgs)
 {
 	
@@ -109,6 +112,10 @@ void SRTS_UnitShopMenu::Construct(const FArguments& InArgs)
 	];
 }
 
+/**
+* Starts tells the HUD and controller to move on when play is pressed
+* @return FReply::Handled()
+*/
 FReply SRTS_UnitShopMenu::PlayButtonClicked()
 {
 	m_CurrentController->StartRound();
@@ -116,16 +123,28 @@ FReply SRTS_UnitShopMenu::PlayButtonClicked()
 	return FReply::Handled();
 }
 
+/**
+* Gets the gold amount the player has left
+* @return int32 - The amount of gold
+*/
 int32 SRTS_UnitShopMenu::GetGoldAmount() const
 {
 	return m_CurrentController->GetCurrentGold();
 }
 
+/**
+* Gets the text for the remaining gold
+* @return FText - The gold amount as readable text for the user
+*/
 FText SRTS_UnitShopMenu::GetGoldText() const
 {
 	return FText::FromString(FString::Printf(TEXT("Current gold: %d"), m_GoldAmount.Get()));
 }
 
+/**
+* Gets the team that the player is on
+* @return FText - The team as readable text for the user
+*/
 FText SRTS_UnitShopMenu::GetTeamText() const
 {
 	ETeamColor color = m_CurrentController->GetTeamColor();

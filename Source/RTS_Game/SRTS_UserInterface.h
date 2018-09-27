@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Widgets/SCompoundWidget.h"
 
-/**
+/** SLATE UI for the user when playing a round
  * 
  */
 class RTS_GAME_API SRTS_UserInterface : public SCompoundWidget

@@ -140,6 +140,10 @@ FText SRTS_UnitListElement::GetDescriptionText() const
 	return FText::FromString(m_UnitStats.UnitDescription);
 }
 
+/**
+* Gets the max health of the unit
+* @return FText - The health as readable text for the user
+*/
 FText SRTS_UnitListElement::GetHealthText() const
 {
 	return FText::FromString(FString::Printf(TEXT("Health: %.0f"), m_UnitStats.TotalHealth));
@@ -150,11 +154,19 @@ FSlateBrush SRTS_UnitListElement::GetIcon() const
 	return FSlateBrush();
 }
 
+/**
+* Gets the name of the unit
+* @return FText - The name as readable text for the user
+*/
 FText SRTS_UnitListElement::GetNameText() const
 {
 	return FText::FromString(m_UnitStats.UnitNameString);
 }
 
+/**
+* Gets the range of the unit
+* @return FText - The range as readable text for the user
+*/
 FText SRTS_UnitListElement::GetRangeText() const
 {
 	return FText::FromString(FString::Printf(TEXT("Range: &f"), m_UnitStats.Range));

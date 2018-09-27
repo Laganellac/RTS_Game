@@ -17,6 +17,9 @@ BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION
 
 #define LOCTEXT_NAMESPACE "SRTS_UserInterface"
 
+/**
+* Defines the layout of the widget
+*/
 void SRTS_UserInterface::Construct(const FArguments& InArgs)
 {
 	m_OwnerHUD = InArgs._OwnerHUDArg;
@@ -184,11 +187,19 @@ void SRTS_UserInterface::Construct(const FArguments& InArgs)
 	];
 }
 
+/**
+* Gets the currently selected unit
+* @return  ARTS_Unit * - A reference to the unit
+*/
 ARTS_Unit *SRTS_UserInterface::GetCurrentUnit() const
 {
 	return m_CurrentController->GetSelectedUnit();
 }
 
+/**
+* Gets the text for the current energy/maxenergy
+* @return FText - The energy for the user
+*/
 FText SRTS_UserInterface::GetEnergyText() const
 {
 	if (m_CurrentUnit.Get())
@@ -198,6 +209,10 @@ FText SRTS_UserInterface::GetEnergyText() const
 	return FText();
 }
 
+/**
+* Gets the name of the unit
+* @return FText -  The name as readable text for the user
+*/
 FText SRTS_UserInterface::GetNameText() const
 {
 	if (m_CurrentUnit.Get())
@@ -207,6 +222,10 @@ FText SRTS_UserInterface::GetNameText() const
 	return FText();
 }
 
+/**
+* Gets the text for the current health / max health
+* @return FText - Text in to display the health to the user
+*/
 FText SRTS_UserInterface::GetHealthText() const
 {
 	if (m_CurrentUnit.Get())
